@@ -1,4 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter$
+from simpletransformers.language_generation import LanguageGenerationModel
+
 
 from .models import GenerateRequest, GenerateResponse
 
