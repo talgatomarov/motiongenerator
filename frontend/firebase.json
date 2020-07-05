@@ -1,7 +1,7 @@
 {
   "hosting": {
     "public": "build",
-    "site": "motiongenerator.firebaseapp.com",
+    "site": "motion-generator.web.app",
     "ignore": [
       "firebase.json",
       "**/.*",
