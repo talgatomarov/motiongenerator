@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
 const MotionForm = () => {
   const classes = useStyles();
 
-  const [prompt_, setPrompt] = useState("");
-  const [motion, setMotion] = useState("");
+  const [prefix, setPrefix] = useState("");
+  const [motion, setMotion] = useState([]);
   const [temperature, setTemperature] = useState(0.7);
   const [open, setOpen] = useState(false);
 
@@ -45,10 +45,10 @@ const MotionForm = () => {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({prompt: prompt_, temperature: temperature})
+        body: JSON.stringify({prefix  : prefix, temperature: temperature})
     }
 
-    fetch('/api/motion', requestOptions)
+    fetch('/api/generate', requestOptions)
         .then(response => response.json())
         .then(data => {
           console.log(data)
@@ -71,7 +71,7 @@ const MotionForm = () => {
               fullWidth
               multiline
               variant="outlined"
-              onChange={e => setPrompt(e.target.value)}
+              onChange={e => setPrefix(e.target.value)}
             />
           </Grid>
           <Grid item xs={12} md={4}>

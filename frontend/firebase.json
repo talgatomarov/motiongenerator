@@ -1,13 +1,20 @@
 {
   "hosting": {
     "public": "build",
-    "site": "motion-generator.web.app",
+    "site": "motiongenerator",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
     "rewrites": [
+      {
+        "source": "/api/**",
+        "run": {
+          "serviceId": "motion-backend",
+          "region": "us-central1"
+        }
+      },
       {
         "source": "**",
         "destination": "/index.html"
