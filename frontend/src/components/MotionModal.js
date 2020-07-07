@@ -67,6 +67,7 @@ const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
     >
       <Fade in={open}>
         <Paper className={classes.paper}>
+          <p>Generated Motions</p>
           {loading && <LoadingMessage/>}
           <MotionList motions={motions}/>
         </Paper>

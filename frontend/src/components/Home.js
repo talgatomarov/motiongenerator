@@ -47,8 +47,20 @@ const Home = () => {
 
             <Grid item className={classes.item} xs={12}>
             <Typography variant="body1" gutterBottom>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras dictum ipsum ut leo condimentum pulvinar. Aenean feugiat sapien eu justo auctor elementum. Praesent sagittis elit at ex facilisis rutrum. Praesent laoreet tempus sem, sed laoreet nunc tempor at. Quisque at aliquet odio, non gravida ante. Ut vitae bibendum lectus, lacinia mollis lorem. Etiam auctor at sem cursus venenatis. Integer auctor mi metus, eu scelerisque lorem tincidunt ac. Vivamus eu augue ipsum. Fusce euismod orci sed libero sodales, rutrum aliquet purus sodales.
+              This is a debating motion generator model. It is built upon the GPT-2 model fine-tuned on the set of 5183 debating motions.
+              For those who are not familiar with debating motions, they usually look like: "This house would ban gun ownership" or "This house believes that charities should not accept money from donors they consider immoral".
+            </Typography>
 
+            <Typography variant="body1" gutterBottom>
+              You can generate a motion by typing the beginning of the motion in the prompt below.
+              The model will finish the motion for you. 
+              I suggest to give the model a bit of context (e.g. This house believes that Kazakhstan).
+            </Typography>
+
+            <Typography variant="body1" gutterBottom>
+              Additionally, you can control the temperature of generation.
+              Low temperatures results in more predictable text.
+              Higher temperatures results in more surprising text.
             </Typography>
             </Grid>
 
