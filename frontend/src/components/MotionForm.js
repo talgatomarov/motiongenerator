@@ -13,9 +13,13 @@ const MotionForm = () => {
   const [motions, setMotions] = useState([]);
   const [temperature, setTemperature] = useState(0.7);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+    setOpen(true);
+
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -28,7 +32,7 @@ const MotionForm = () => {
           setMotions(data.motions);
         })
         .then(() => {
-            setOpen(true);
+          setLoading(false);
         })
   }
 
@@ -64,7 +68,7 @@ const MotionForm = () => {
           </Grid>
         </Grid>
       </form>
-      <MotionModal open={open} setOpen={setOpen} motions={motions}/>
+      <MotionModal open={open} setOpen={setOpen} motions={motions} loading={loading}/>
     </div>
   );
 };

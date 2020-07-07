@@ -1,4 +1,5 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
@@ -6,6 +7,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
 import MotionList from './MotionList'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -17,10 +19,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    outline: 'none'
   },
 }));
 
-const MotionModal = ({open, setOpen, motions}) => {
+const MotionModal = ({open, setOpen, motions, loading}) => {
   const classes = useStyles();
 
   const handleOpen = () => {
@@ -29,6 +32,23 @@ const MotionModal = ({open, setOpen, motions}) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const LoadingMessage = () => {
+    return (
+      <div>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={12} align="center">
+            <Typography variant="body1" gutterBottom>
+              The motions are being generated. It make take a while.
+            </Typography>
+          </Grid>
+          <Grid item xs={12} md={12} align="center">
+            <CircularProgress size={24} />
+          </Grid>
+        </Grid>
+      </div>
+    );
   };
 
   return (
@@ -46,9 +66,8 @@ const MotionModal = ({open, setOpen, motions}) => {
     >
       <Fade in={open}>
         <Paper className={classes.paper}>
-          <Typography variant="body1" gutterBottom>
-            <MotionList motions={motions}/>
-          </Typography>
+          {loading && <LoadingMessage/>}
+          <MotionList motions={motions}/>
         </Paper>
       </Fade>
     </Modal>
