@@ -41,7 +41,7 @@ const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
         <Grid container spacing={4}>
           <Grid item xs={12} md={12} align="center">
             <Typography variant="body1" gutterBottom>
-              The motions are being generated. It make take a while.
+              The motions are being generated. It may take a while.
             </Typography>
           </Grid>
           <Grid item xs={12} md={12} align="center">
