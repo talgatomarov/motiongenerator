@@ -68,7 +68,13 @@ const MotionForm = () => {
           </Grid>
         </Grid>
       </form>
-      <MotionModal open={open} setOpen={setOpen} motions={motions} loading={loading}/>
+      <MotionModal
+        open={open}
+        setOpen={setOpen}
+        motions={motions}
+        setMotions={setMotions}
+        loading={loading}
+      />
     </div>
   );
 };

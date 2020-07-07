@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MotionModal = ({open, setOpen, motions, loading}) => {
+const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
   const classes = useStyles();
 
   const handleOpen = () => {
@@ -32,6 +32,7 @@ const MotionModal = ({open, setOpen, motions, loading}) => {
 
   const handleClose = () => {
     setOpen(false);
+    setMotions([]);
   };
 
   const LoadingMessage = () => {
