@@ -57,8 +57,8 @@ const Home = () => {
               I suggest to give the model a bit of context (e.g. This house believes that Kazakhstan).
 
               Additionally, you can control the temperature of generation.
-              Low temperatures results in more predictable text.
-              Higher temperatures results in more surprising text.
+              Low temperatures result in more predictable text.
+              Higher temperatures result in more surprising text.
             </Typography>
             </Grid>
 
