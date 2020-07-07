@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import {analytics} from '../base.js';
 
 import MotionModal from './MotionModal'
 
@@ -30,6 +31,7 @@ const MotionForm = () => {
         .then(response => response.json())
         .then(data => {
           setMotions(data.motions);
+          analytics.logEvent('generate_motions', {generated_motions: motions, input_motion: prefix});
         })
         .then(() => {
           setLoading(false);
