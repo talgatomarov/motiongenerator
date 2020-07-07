@@ -55,9 +55,7 @@ const Home = () => {
               You can generate a motion by typing the beginning of the motion in the prompt below.
               The model will finish the motion for you. 
               I suggest to give the model a bit of context (e.g. This house believes that Kazakhstan).
-            </Typography>
 
-            <Typography variant="body1" gutterBottom>
               Additionally, you can control the temperature of generation.
               Low temperatures results in more predictable text.
               Higher temperatures results in more surprising text.
