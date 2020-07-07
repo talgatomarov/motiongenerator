@@ -25,11 +25,9 @@ const MotionForm = () => {
     fetch('/api/generate/', requestOptions)
         .then(response => response.json())
         .then(data => {
-          console.log(data)
           setMotions(data.motions);
         })
         .then(() => {
-            console.log(motions)
             setOpen(true);
         })
   }
