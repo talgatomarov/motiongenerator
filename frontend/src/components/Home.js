@@ -58,7 +58,7 @@ const Home = () => {
 
               Additionally, you can control the temperature of generation.
               Low temperatures result in more predictable text.
-              Higher temperatures result in more surprising text.
+              Higher temperatures result in more surprising text. Also avoid using abbreviations like THBT and THW.
             </Typography>
 
             <Typography variant="body1" gutterBottom>
