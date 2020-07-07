@@ -60,6 +60,11 @@ const Home = () => {
               Low temperatures result in more predictable text.
               Higher temperatures result in more surprising text.
             </Typography>
+
+            <Typography variant="body1" gutterBottom>
+              Do not expect the model to generate debatable motions. Sometimes the model generates bad results (in such case try running it a couple of times).
+              If you have any questions or suggestions you can email me at <a href="mailto:talgat.omarov@nu.edu.kz">talgat.omarov@nu.edu.kz</a>.  
+            </Typography>
             </Grid>
 
 
