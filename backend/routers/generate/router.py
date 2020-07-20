@@ -6,7 +6,7 @@ from .models import GenerateRequest, GenerateResponse
 
 router = APIRouter()
 
-model = LanguageGenerationModel("gpt2", "./routers/generate/artifacts/model",
+model = LanguageGenerationModel("gpt2", "artifacts/model",
         args={"length": 256, 'fp16': False}, use_cuda=False)
 
 @router.post("/", response_model=GenerateResponse)
