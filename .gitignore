@@ -4,3 +4,4 @@ cache_dir/
 .env
 *.swo
 *.swp
+.git.bfg-report/
