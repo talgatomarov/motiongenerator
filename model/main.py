@@ -3,6 +3,11 @@ import luigi
 from luigi.contrib.gcs import GCSClient
 from sklearn.model_selection import train_test_split
 
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+from transformers.data.datasets.language_modeling import TextDataset
+from transformers import DataCollatorForLanguageModeling
+from transformers import Trainer, TrainingArguments
+
 
 class DownloadDataset(luigi.Task):
     dataset_path=luigi.Parameter()
@@ -63,6 +68,48 @@ class SplitDataset(luigi.Task):
     def output(self):
         return {'train': luigi.LocalTarget('./data/train.txt'),
                 'test': luigi.LocalTarget('./data/test.txt')}
+
+class Train(luigi.Task):
+    block_size = luigi.IntParameter(default=128)
+
+    def requires(self):
+        return SplitDataset()
+
+    def run(self):
+        model = GPT2LMHeadModel.from_pretrained("distilgpt2")
+        tokenizer = GPT2Tokenizer.from_pretrained("distilgpt2")
+
+        train_dataset = TextDataset(tokenizer, self.input()['train'].path, block_size=self.block_size)
+        test_dataset = TextDataset(tokenizer, self.input()['test'].path, block_size=self.block_size)
+
+        data_collator = DataCollatorForLanguageModeling(
+            tokenizer=tokenizer, mlm=False
+        )
+
+
+        training_args = TrainingArguments(
+            output_dir='./results',
+            overwrite_output_dir=True,
+            num_train_epochs=1,
+            per_device_train_batch_size=12,
+            per_device_eval_batch_size=16,
+            warmup_steps=500,
+            weight_decay=0.01,
+            logging_dir='./logs',
+        )
+
+        trainer = Trainer(
+            model=model,
+            args=training_args,
+            data_collator=data_collator,
+            train_dataset=train_dataset,
+            eval_dataset=test_dataset
+        )
+
+        trainer.train()
+
+        trainer.save_model()
+
 
 if __name__ == '__main__':
     luigi.run()
