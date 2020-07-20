@@ -71,6 +71,15 @@ class SplitDataset(luigi.Task):
 
 class Train(luigi.Task):
     block_size = luigi.IntParameter(default=128)
+    gradient_accumulation_steps = luigi.IntParameter(default=1)
+    learning_rate = luigi.FloatParameter(default=5e-5)
+    seed = luigi.IntParameter(default=42)
+    max_grad_norm = luigi.FloatParameter(default=1.0)
+    num_train_epochs = luigi.IntParameter(default=2 )
+    per_device_train_batch_size = luigi.IntParameter(default=1)
+    per_device_eval_batch_size = luigi.IntParameter(default=1)
+    warmup_steps = luigi.IntParameter(default=100)
+    weight_decay = luigi.FloatParameter(default=0)
 
     def requires(self):
         return SplitDataset()
@@ -90,11 +99,17 @@ class Train(luigi.Task):
         training_args = TrainingArguments(
             output_dir='./results',
             overwrite_output_dir=True,
-            num_train_epochs=1,
-            per_device_train_batch_size=12,
-            per_device_eval_batch_size=16,
-            warmup_steps=500,
-            weight_decay=0.01,
+            do_eval=True,
+            gradient_accumulation_steps=self.gradient_accumulation_steps,
+            learning_rate=self.learning_rate,
+            seed=self.seed,
+            max_grad_norm=self.max_grad_norm,
+            evaluate_during_training=True,
+            num_train_epochs=self.num_train_epochs,
+            per_device_train_batch_size=self.per_device_train_batch_size,
+            per_device_eval_batch_size=self.per_device_eval_batch_size,
+            warmup_steps=self.warmup_steps,
+            weight_decay=self.weight_decay,
             logging_dir='./logs',
         )
 
