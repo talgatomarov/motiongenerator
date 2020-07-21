@@ -1,5 +1,7 @@
 import os
 import luigi
+import json
+from google.oauth2 import service_account
 from luigi.contrib.gcs import GCSClient
 from sklearn.model_selection import train_test_split
 
@@ -13,7 +15,10 @@ class DownloadDataset(luigi.Task):
     dataset_path=luigi.Parameter()
 
     def run(self):
-        client = GCSClient()
+        service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON'))
+        credentials = service_account.Credentials.from_service_account_info(service_account_info)
+
+        client = GCSClient(oauth_credentials=credentials)
 
         fp = client.download(self.dataset_path)
         self.output().makedirs()
