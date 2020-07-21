@@ -12,7 +12,8 @@ from transformers import Trainer, TrainingArguments
 
 
 class DownloadDataset(luigi.Task):
-    dataset_path=luigi.Parameter()
+    bucket = luigi.Parameter()
+    filename = luigi.Parameter()
 
     def run(self):
         service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON'))
@@ -20,13 +21,15 @@ class DownloadDataset(luigi.Task):
 
         client = GCSClient(oauth_credentials=credentials)
 
-        fp = client.download(self.dataset_path)
+        file_path = f'{self.bucket}/{self.filename}'
+
+        fp = client.download(file_path)
         self.output().makedirs()
 
         os.replace(fp.name, self.output().path)
 
     def output(self):
-        return luigi.LocalTarget('./data/motions.txt')
+        return luigi.LocalTarget(f'./data/{self.filename}')
 
 class PreprocessDataset(luigi.Task):
     bos_token = luigi.Parameter(default='<|endoftext|>')
