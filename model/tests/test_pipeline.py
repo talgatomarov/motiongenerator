@@ -1,13 +1,18 @@
 import os
 import luigi
 import pytest
+from unittest.mock import MagicMock
 
 from model.main import Train, DownloadDataset, SplitDataset, PreprocessDataset
 from luigi.execution_summary import LuigiStatusCode
 
+import wandb
+wandb.run = MagicMock()
 
 test_bucket = 'gs://motiongenerator'
 test_filename = 'motions_test.txt'
+bos_token = '<|endoftext|>'
+eos_token = '<|endoftext|>'
 
 
 def test_env_vars():
@@ -20,7 +25,10 @@ def test_env_vars():
 
 
 def test_run():
-    result = luigi.build([DownloadDataset(bucket=test_bucket, filename=test_filename)],
+    result = luigi.build([DownloadDataset(bucket=test_bucket, filename=test_filename),
+                          PreprocessDataset(eos_token=eos_token, bos_token=bos_token),
+                          SplitDataset(),
+                          Train(num_train_epochs=1, block_size=64)],
                           local_scheduler=True, detailed_summary=True)
 
     assert result.status == LuigiStatusCode.SUCCESS or \

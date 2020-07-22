@@ -29,7 +29,7 @@ class DownloadDataset(luigi.Task):
         os.replace(fp.name, self.output().path)
 
     def output(self):
-        return luigi.LocalTarget(f'./data/{self.filename}')
+        return luigi.LocalTarget(f'./data/motions.txt')
 
 class PreprocessDataset(luigi.Task):
     bos_token = luigi.Parameter(default='<|endoftext|>')
