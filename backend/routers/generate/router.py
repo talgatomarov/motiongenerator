@@ -12,7 +12,7 @@ stop_token = '<|endoftext|>'
 
 @router.post("", response_model=GenerateResponse)
 async def generate_motion(request: GenerateRequest):
-    prefix = request.prefix
+    prefix = request.prefix  # beginning of the motions
     temperature = request.temperature
 
     inputs = tokenizer.encode(prefix, return_tensors="pt")
