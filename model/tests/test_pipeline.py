@@ -1,4 +1,5 @@
 import os
+import shutil
 import luigi
 import pytest
 from unittest.mock import MagicMock
@@ -15,6 +16,13 @@ bos_token = '<|endoftext|>'
 eos_token = '<|endoftext|>'
 
 
+test_data_folder = 'tests/data_test'
+motions_file = 'motions.txt'
+motions_prep_file = 'motions_prep.txt'
+train_file = 'train.txt'
+test_file = 'test.txt'
+
+
 def test_env_vars():
     assert 'WANDB_API_KEY' in os.environ
     assert 'WANDB_PROJECT' in os.environ
@@ -22,9 +30,13 @@ def test_env_vars():
     assert os.environ['WANDB_WATCH'] == 'all'
     assert 'GOOGLE_APPLICATION_CREDENTIALS_JSON' in os.environ
 
-
+@pytest.fixture(scope='session', autouse=True)
+def cleanup():
+    yield
+    if os.path.exists(test_data_folder): shutil.rmtree(test_data_folder)
 
 def test_run():
+    data_folder = luigi.configuration.get_config().set('GlobalConfig', 'data_folder', test_data_folder)
     result = luigi.build([DownloadDataset(bucket=test_bucket, filename=test_filename),
                           PreprocessDataset(eos_token=eos_token, bos_token=bos_token),
                           SplitDataset(),
@@ -35,11 +47,11 @@ def test_run():
            result.status == LuigiStatusCode.SUCCESS_WITH_RETRY
 
 def test_download():
-    assert os.path.isfile(f'./data/motions.txt') # dataset was not downloaded
+    assert os.path.isfile(os.path.join(test_data_folder, motions_file)) # dataset was not downloaded
 
 def test_preprocess():
-    assert os.path.isfile(f'./data/motions_prep.txt') # dataset was not preprocessed
+    assert os.path.isfile(os.path.join(test_data_folder, motions_prep_file)) # dataset was not preprocessed
 
 def test_split():
-    assert os.path.isfile(f'./data/train.txt') # dataset was not preprocessed
-    assert os.path.isfile(f'./data/test.txt') # dataset was not preprocessed
+    assert os.path.isfile(os.path.join(test_data_folder, train_file)) # train file was not created
+    assert os.path.isfile(os.path.join(test_data_folder, test_file)) # test file was not created

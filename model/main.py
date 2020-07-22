@@ -10,8 +10,6 @@ from transformers.data.datasets.language_modeling import TextDataset
 from transformers import DataCollatorForLanguageModeling
 from transformers import Trainer, TrainingArguments
 
-class GlobalConfig(luigi.Config):
-    data_folder = luigi.Parameter(default='data')
 
 class DownloadDataset(luigi.Task):
     bucket = luigi.Parameter()
@@ -31,7 +29,7 @@ class DownloadDataset(luigi.Task):
         os.replace(fp.name, self.output().path)
 
     def output(self):
-        data_folder = GlobalConfig().data_folder
+        data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
         return luigi.LocalTarget(os.path.join(data_folder, 'motions.txt'))
 
 class PreprocessDataset(luigi.Task):
@@ -52,7 +50,7 @@ class PreprocessDataset(luigi.Task):
 
 
     def output(self):
-        data_folder = GlobalConfig().data_folder
+        data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
         return luigi.LocalTarget(os.path.join(data_folder, 'motions_prep.txt'))
 
 
@@ -78,7 +76,7 @@ class SplitDataset(luigi.Task):
             f.writelines(test)
 
     def output(self):
-        data_folder = GlobalConfig().data_folder
+        data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
         return {'train': luigi.LocalTarget(os.path.join(data_folder, 'train.txt')),
                 'test': luigi.LocalTarget(os.path.join(data_folder, 'test.txt'))}
 
