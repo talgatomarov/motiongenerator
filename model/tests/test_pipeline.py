@@ -10,16 +10,21 @@ test_bucket = 'gs://motiongenerator'
 test_filename = 'motions_test.txt'
 
 
-@pytest.fixture
-def worker():
-    w = luigi.worker.Worker()
-    yield w
+def test_env_vars():
+    assert 'WANDB_API_KEY' in os.environ
+    assert 'WANDB_PROJECT' in os.environ
+    assert 'WANDB_WATCH' in os.environ
+    assert os.environ['WANDB_WATCH'] == 'all'
+    assert 'GOOGLE_APPLICATION_CREDENTIALS_JSON' in os.environ
+
+
 
 def test_run():
     result = luigi.build([DownloadDataset(bucket=test_bucket, filename=test_filename)],
                           local_scheduler=True, detailed_summary=True)
 
-    assert result.status == LuigiStatusCode.SUCCESS or result.status == LuigiStatusCode.SUCCESS_WITH_RETRY
+    assert result.status == LuigiStatusCode.SUCCESS or \
+           result.status == LuigiStatusCode.SUCCESS_WITH_RETRY
 
 
 
