@@ -10,7 +10,7 @@ tokenizer = GPT2Tokenizer.from_pretrained("artifacts/model")
 stop_token = '<|endoftext|>'
 
 
-@router.post("/", response_model=GenerateResponse)
+@router.post("", response_model=GenerateResponse)
 async def generate_motion(request: GenerateRequest):
     prefix = request.prefix
     temperature = request.temperature
