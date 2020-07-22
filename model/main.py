@@ -1,5 +1,7 @@
 import os
 import luigi
+import json
+from google.oauth2 import service_account
 from luigi.contrib.gcs import GCSClient
 from sklearn.model_selection import train_test_split
 
@@ -10,18 +12,26 @@ from transformers import Trainer, TrainingArguments
 
 
 class DownloadDataset(luigi.Task):
-    dataset_path=luigi.Parameter()
+    bucket = luigi.Parameter()
+    filename = luigi.Parameter()
 
     def run(self):
-        client = GCSClient()
+        service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON'))
+        credentials = service_account.Credentials.from_service_account_info(service_account_info)
 
-        fp = client.download(self.dataset_path)
+        client = GCSClient(oauth_credentials=credentials)
+
+        file_path = f'{self.bucket}/{self.filename}'
+
+        fp = client.download(file_path)
         self.output().makedirs()
 
         os.replace(fp.name, self.output().path)
 
     def output(self):
-        return luigi.LocalTarget('./data/motions.txt')
+        data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
+        return luigi.LocalTarget(os.path.join(data_folder, 'motions.txt'))
+
 
 class PreprocessDataset(luigi.Task):
     bos_token = luigi.Parameter(default='<|endoftext|>')
@@ -39,9 +49,9 @@ class PreprocessDataset(luigi.Task):
         with self.output().open('w') as f:
             f.writelines(motions_prep)
 
-
     def output(self):
-        return luigi.LocalTarget('./data/motions_prep.txt')
+        data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
+        return luigi.LocalTarget(os.path.join(data_folder, 'motions_prep.txt'))
 
 
 class SplitDataset(luigi.Task):
@@ -66,8 +76,10 @@ class SplitDataset(luigi.Task):
             f.writelines(test)
 
     def output(self):
-        return {'train': luigi.LocalTarget('./data/train.txt'),
-                'test': luigi.LocalTarget('./data/test.txt')}
+        data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
+        return {'train': luigi.LocalTarget(os.path.join(data_folder, 'train.txt')),
+                'test': luigi.LocalTarget(os.path.join(data_folder, 'test.txt'))}
+
 
 class Train(luigi.Task):
     block_size = luigi.IntParameter(default=128)
@@ -75,7 +87,7 @@ class Train(luigi.Task):
     learning_rate = luigi.FloatParameter(default=5e-5)
     seed = luigi.IntParameter(default=42)
     max_grad_norm = luigi.FloatParameter(default=1.0)
-    num_train_epochs = luigi.IntParameter(default=2 )
+    num_train_epochs = luigi.IntParameter(default=1)
     per_device_train_batch_size = luigi.IntParameter(default=1)
     per_device_eval_batch_size = luigi.IntParameter(default=1)
     warmup_steps = luigi.IntParameter(default=100)
@@ -94,7 +106,6 @@ class Train(luigi.Task):
         data_collator = DataCollatorForLanguageModeling(
             tokenizer=tokenizer, mlm=False
         )
-
 
         training_args = TrainingArguments(
             output_dir='./results',
@@ -128,4 +139,3 @@ class Train(luigi.Task):
 
 if __name__ == '__main__':
     luigi.run()
-
