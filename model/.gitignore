@@ -4,3 +4,4 @@ credentials.json
 results/
 logs/
 wandb/
+*.zip
