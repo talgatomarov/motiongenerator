@@ -25,8 +25,8 @@ jobs:
     - uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
       with:
         version: '290.0.1'
-        service_account_key: ${{ secrets.RUN_SA_KEY }}
-        project_id: ${{ secrets.RUN_PROJECT }}
+        service_account_key: ${{ secrets.BUILD_SA_KEY }}
+        project_id: motiongenerator
 
     # Build and push image to Google Container Registry
     - name: Build
