@@ -118,20 +118,24 @@ class Train(luigi.Task):
         )
 
         training_args = TrainingArguments(
+            do_eval=self.do_eval,
+            do_train=self.do_train,
+            eval_steps=self.eval_steps,
+            evaluate_during_training=self.evaluate_during_training,
+            gradient_accumulation_steps=self.gradient_accumulation_steps,
+            logging_dir='./logs',
+            logging_steps=self.logging_steps,
+            learning_rate=self.learning_rate,
+            max_grad_norm=self.max_grad_norm,
+            num_train_epochs=self.num_train_epochs,
             output_dir=result_folder,
             overwrite_output_dir=True,
-            do_eval=True,
-            gradient_accumulation_steps=self.gradient_accumulation_steps,
-            learning_rate=self.learning_rate,
-            seed=self.seed,
-            max_grad_norm=self.max_grad_norm,
-            evaluate_during_training=True,
-            num_train_epochs=self.num_train_epochs,
             per_device_train_batch_size=self.per_device_train_batch_size,
             per_device_eval_batch_size=self.per_device_eval_batch_size,
+            save_steps=self.save_steps,
+            seed=self.seed,
             warmup_steps=self.warmup_steps,
             weight_decay=self.weight_decay,
-            logging_dir='./logs',
         )
 
         trainer = Trainer(
