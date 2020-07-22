@@ -39,3 +39,7 @@ def test_download():
 
 def test_preprocess():
     assert os.path.isfile(f'./data/motions_prep.txt') # dataset was not preprocessed
+
+def test_split():
+    assert os.path.isfile(f'./data/train.txt') # dataset was not preprocessed
+    assert os.path.isfile(f'./data/test.txt') # dataset was not preprocessed
