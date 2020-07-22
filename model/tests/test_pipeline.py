@@ -22,6 +22,7 @@ motions_file = 'motions.txt'
 motions_prep_file = 'motions_prep.txt'
 train_file = 'train.txt'
 test_file = 'test.txt'
+test_size=0.1
 
 
 def test_env_vars():
@@ -43,7 +44,7 @@ def test_run():
     luigi.configuration.get_config().set('GlobalConfig', 'data_folder', test_data_folder)
     result = luigi.build([DownloadDataset(bucket=test_bucket, filename=test_filename),
                           PreprocessDataset(eos_token=eos_token, bos_token=bos_token),
-                          SplitDataset(),
+                          SplitDataset(test_size=test_size),
                           Train(num_train_epochs=1, block_size=64)],
                          local_scheduler=True,
                          detailed_summary=True)
@@ -71,6 +72,7 @@ def test_preprocess():
 
 
 def test_split():
+    motions_file_path = os.path.join(test_data_folder, motions_file)
     test_file_path = os.path.join(test_data_folder, test_file)
     train_file_path = os.path.join(test_data_folder, train_file)
 
@@ -78,3 +80,15 @@ def test_split():
     assert os.path.isfile(train_file_path)  # test file was not created
     assert os.path.getsize(test_file_path) > 0
     assert os.path.getsize(train_file_path) > 0
+
+    with open(motions_file_path, 'r') as f:
+        num_motions = len(f.readlines())
+
+    num_test_motions = int(num_motions * test_size)
+    num_train_motions = num_motions - num_test_motions
+
+    with open(test_file_path, 'r') as f:
+        assert len(f.readlines()) == num_test_motions
+
+    with open(train_file_path, 'r') as f:
+        assert len(f.readlines()) == num_train_motions
