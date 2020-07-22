@@ -53,12 +53,15 @@ def test_run():
 
 
 def test_download():
-    assert os.path.isfile(os.path.join(test_data_folder, motions_file))  # dataset was not downloaded
+    motions_file_path = os.path.join(test_data_folder, motions_file)
+    assert os.path.isfile(motions_file_path)  # dataset was not downloaded
+    assert os.path.getsize(motions_file_path) > 0
 
 
 def test_preprocess():
     motion_prep_file_path = os.path.join(test_data_folder, motions_prep_file)
     assert os.path.isfile(motion_prep_file_path)  # dataset was not preprocessed
+    assert os.path.getsize(motion_prep_file_path) > 0
 
     pattern = f"^{re.escape(bos_token)}.*{re.escape(eos_token)}\n$"
     with open(motion_prep_file_path, 'r') as f:
@@ -68,5 +71,10 @@ def test_preprocess():
 
 
 def test_split():
-    assert os.path.isfile(os.path.join(test_data_folder, train_file))  # train file was not created
-    assert os.path.isfile(os.path.join(test_data_folder, test_file))  # test file was not created
+    test_file_path = os.path.join(test_data_folder, test_file)
+    train_file_path = os.path.join(test_data_folder, train_file)
+
+    assert os.path.isfile(test_file_path)  # train file was not created
+    assert os.path.isfile(train_file_path)  # test file was not created
+    assert os.path.getsize(test_file_path) > 0
+    assert os.path.getsize(train_file_path) > 0
