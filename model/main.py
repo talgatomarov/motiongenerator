@@ -32,6 +32,7 @@ class DownloadDataset(luigi.Task):
         data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
         return luigi.LocalTarget(os.path.join(data_folder, 'motions.txt'))
 
+
 class PreprocessDataset(luigi.Task):
     bos_token = luigi.Parameter(default='<|endoftext|>')
     eos_token = luigi.Parameter(default='<|endoftext|>')
@@ -47,7 +48,6 @@ class PreprocessDataset(luigi.Task):
 
         with self.output().open('w') as f:
             f.writelines(motions_prep)
-
 
     def output(self):
         data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
@@ -80,13 +80,14 @@ class SplitDataset(luigi.Task):
         return {'train': luigi.LocalTarget(os.path.join(data_folder, 'train.txt')),
                 'test': luigi.LocalTarget(os.path.join(data_folder, 'test.txt'))}
 
+
 class Train(luigi.Task):
     block_size = luigi.IntParameter(default=128)
     gradient_accumulation_steps = luigi.IntParameter(default=1)
     learning_rate = luigi.FloatParameter(default=5e-5)
     seed = luigi.IntParameter(default=42)
     max_grad_norm = luigi.FloatParameter(default=1.0)
-    num_train_epochs = luigi.IntParameter(default=2 )
+    num_train_epochs = luigi.IntParameter(default=1)
     per_device_train_batch_size = luigi.IntParameter(default=1)
     per_device_eval_batch_size = luigi.IntParameter(default=1)
     warmup_steps = luigi.IntParameter(default=100)
@@ -105,7 +106,6 @@ class Train(luigi.Task):
         data_collator = DataCollatorForLanguageModeling(
             tokenizer=tokenizer, mlm=False
         )
-
 
         training_args = TrainingArguments(
             output_dir='./results',
@@ -139,4 +139,3 @@ class Train(luigi.Task):
 
 if __name__ == '__main__':
     luigi.run()
-
