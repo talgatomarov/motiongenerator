@@ -1,6 +1,8 @@
 import os
 import luigi
 import json
+import shutil
+import wandb
 from google.oauth2 import service_account
 from luigi.contrib.gcs import GCSClient
 from sklearn.model_selection import train_test_split
@@ -92,11 +94,13 @@ class Train(luigi.Task):
     per_device_eval_batch_size = luigi.IntParameter(default=1)
     warmup_steps = luigi.IntParameter(default=100)
     weight_decay = luigi.FloatParameter(default=0)
+    save_steps = luigi.IntParameter(default=0)
 
     def requires(self):
         return SplitDataset()
 
     def run(self):
+        result_folder = luigi.configuration.get_config().get('GlobalConfig', 'result_folder')
         model = GPT2LMHeadModel.from_pretrained("distilgpt2")
         tokenizer = GPT2Tokenizer.from_pretrained("distilgpt2")
 
@@ -108,7 +112,7 @@ class Train(luigi.Task):
         )
 
         training_args = TrainingArguments(
-            output_dir='./results',
+            output_dir=result_folder,
             overwrite_output_dir=True,
             do_eval=True,
             gradient_accumulation_steps=self.gradient_accumulation_steps,
@@ -135,6 +139,39 @@ class Train(luigi.Task):
         trainer.train()
 
         trainer.save_model()
+        wandb.run.save()
+        wandb.join()
+
+        with open(self.output()['run_name'].path, 'w') as f:
+            f.write(wandb.run.name)
+
+    def output(self):
+        result_folder = luigi.configuration.get_config().get('GlobalConfig', 'result_folder')
+        return {'results': luigi.LocalTarget(result_folder),
+                'run_name': luigi.LocalTarget(os.path.join(result_folder, 'run_name.txt'))}
+
+
+
+class UploadToGCS(luigi.Task):
+    bucket = luigi.Parameter()
+
+    def requires(self):
+        return Train()
+
+    def run(self):
+        result_folder = self.input()['results'].path
+
+        with open(self.input()['run_name'].path, 'r') as f:
+            run_name = f.read()
+
+        zipfile_name = shutil.make_archive(run_name, 'zip', result_folder)
+
+        service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON'))
+        credentials = service_account.Credentials.from_service_account_info(service_account_info)
+
+        client = GCSClient(oauth_credentials=credentials)
+
+        client.put(zipfile_name, f"{self.bucket}/{run_name}.zip")
 
 
 if __name__ == '__main__':
