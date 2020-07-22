@@ -1,5 +1,6 @@
 import os
 import shutil
+import re
 import luigi
 import pytest
 from unittest.mock import MagicMock
@@ -56,7 +57,14 @@ def test_download():
 
 
 def test_preprocess():
-    assert os.path.isfile(os.path.join(test_data_folder, motions_prep_file))  # dataset was not preprocessed
+    motion_prep_file_path = os.path.join(test_data_folder, motions_prep_file)
+    assert os.path.isfile(motion_prep_file_path)  # dataset was not preprocessed
+
+    pattern = f"^{re.escape(bos_token)}.*{re.escape(eos_token)}\n$"
+    with open(motion_prep_file_path, 'r') as f:
+        motions = f.readlines()
+        for motion in motions:
+            assert re.search(pattern, motion) is not None
 
 
 def test_split():
