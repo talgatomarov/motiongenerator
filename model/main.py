@@ -1,4 +1,5 @@
 import os
+import time
 import luigi
 import json
 import shutil
@@ -149,11 +150,19 @@ class Train(luigi.Task):
         trainer.train()
 
         trainer.save_model()
-        wandb.run.save()
-        wandb.join()
+        tokenizer.save_pretrained(result_folder)
+
+        wanb_disabled = os.environ.get('WANDB_DISABLED', False)
+
+        if wanb_disabled:
+            run_name = time.strftime('%Y%m%d-%H%M%S')
+        else:
+            wandb.run.save()
+            wandb.join()
+            run_name = wandb.run.name
 
         with open(self.output()['run_name'].path, 'w') as f:
-            f.write(wandb.run.name)
+            f.write(run_name)
 
     def output(self):
         result_folder = luigi.configuration.get_config().get('GlobalConfig', 'result_folder')

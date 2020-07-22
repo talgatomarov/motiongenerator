@@ -24,7 +24,9 @@ test_file = 'test.txt'
 test_size = 0.1
 
 test_result_folder = 'tests/results_test'
-result_files = ['config.json', 'pytorch_model.bin', 'training_args.bin']
+result_files = ['config.json', 'pytorch_model.bin', 'training_args.bin',
+                'special_tokens_map.json', 'merges.txt', 'run_name.txt',
+                'tokenizer_config.json', 'vocab.json']
 
 
 def test_env_vars():
@@ -37,7 +39,9 @@ def test_env_vars():
 
 @pytest.fixture(scope='session', autouse=True)
 def cleanup():
+    os.environ["WANDB_DISABLED"] = "true"
     yield
+    os.environ.pop("WANDB_DISABLED")
     if os.path.exists(test_data_folder):
         shutil.rmtree(test_data_folder)
 
