@@ -85,6 +85,11 @@ class SplitDataset(luigi.Task):
 
 class Train(luigi.Task):
     block_size = luigi.IntParameter(default=128)
+    do_train = luigi.BoolParameter(default=True)
+    do_eval = luigi.BoolParameter(default=True)
+    evaluate_during_training = luigi.BoolParameter(default=True)
+    logging_steps = luigi.IntParameter(default=100)
+    eval_steps = luigi.IntParameter(default=100)
     gradient_accumulation_steps = luigi.IntParameter(default=1)
     learning_rate = luigi.FloatParameter(default=5e-5)
     seed = luigi.IntParameter(default=42)
@@ -95,6 +100,7 @@ class Train(luigi.Task):
     warmup_steps = luigi.IntParameter(default=100)
     weight_decay = luigi.FloatParameter(default=0)
     save_steps = luigi.IntParameter(default=0)
+
 
     def requires(self):
         return SplitDataset()
