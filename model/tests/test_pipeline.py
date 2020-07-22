@@ -34,14 +34,8 @@ def test_run():
     assert result.status == LuigiStatusCode.SUCCESS or \
            result.status == LuigiStatusCode.SUCCESS_WITH_RETRY
 
-
-
 def test_download():
-    assert os.path.isfile(f'./data/{test_filename}') # dataset was not downloaded
+    assert os.path.isfile(f'./data/motions.txt') # dataset was not downloaded
 
-
-
-
-
-
-
+def test_preprocess():
+    assert os.path.isfile(f'./data/motions_prep.txt') # dataset was not preprocessed
