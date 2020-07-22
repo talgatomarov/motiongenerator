@@ -16,13 +16,15 @@ test_filename = 'motions_test.txt'
 bos_token = '<|endoftext|>'
 eos_token = '<|endoftext|>'
 
-
 test_data_folder = 'tests/data_test'
 motions_file = 'motions.txt'
 motions_prep_file = 'motions_prep.txt'
 train_file = 'train.txt'
 test_file = 'test.txt'
 test_size=0.1
+
+test_result_folder = 'tests/results_test'
+result_files = ['config.json', 'pytorch_model.bin', 'training_args.bin']
 
 
 def test_env_vars():
@@ -39,9 +41,13 @@ def cleanup():
     if os.path.exists(test_data_folder):
         shutil.rmtree(test_data_folder)
 
+    if os.path.exists(test_result_folder):
+        shutil.rmtree(test_result_folder)
+
 
 def test_run():
     luigi.configuration.get_config().set('GlobalConfig', 'data_folder', test_data_folder)
+    luigi.configuration.get_config().set('GlobalConfig', 'result_folder', test_result_folder)
     result = luigi.build([DownloadDataset(bucket=test_bucket, filename=test_filename),
                           PreprocessDataset(eos_token=eos_token, bos_token=bos_token),
                           SplitDataset(test_size=test_size),
@@ -92,3 +98,8 @@ def test_split():
 
     with open(train_file_path, 'r') as f:
         assert len(f.readlines()) == num_train_motions
+
+def test_result():
+    for f in result_files:
+        file_path = os.path.join(test_result_folder, f)
+        assert os.path.isfile(file_path)
