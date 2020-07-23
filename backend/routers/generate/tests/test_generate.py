@@ -13,8 +13,8 @@ def test_post_predict():
     motion = "This house believes that Kazakhstan"
 
     response = client.post(
-            '/api/generate',
-            json={"prefix": motion, "temperature": 0.7}
+        '/api/generate',
+        json={"prefix": motion, "temperature": 0.7}
     )
 
     assert response.status_code == 200

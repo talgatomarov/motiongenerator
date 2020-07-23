@@ -13,11 +13,11 @@ bucket_name = 'motiongenerator'
 model_zip = 'atomic-dawn-43.zip'
 
 service_account_info = json.loads(
-        os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON')
+    os.environ.get('GOOGLE_APPLICATION_CREDENTIALS_JSON')
 )
 
 credentials = service_account.Credentials.from_service_account_info(
-        service_account_info
+    service_account_info
 )
 
 client = storage.Client(project=project_id, credentials=credentials)
