@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.6.9
 
 COPY requirements/prod.txt requirements/prod.txt
 RUN pip install --upgrade pip
