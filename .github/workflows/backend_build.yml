@@ -1,44 +1,46 @@
 name: Build Backend and Push It to Container Registry
 
 on:
-  push:
+  release:
+    types: 
+      - created
     paths:
       - 'backend/**'
-    branches: [ master ]
-    
+  
 env:
   PROJECT_ID: motiongenerator
   SERVICE_NAME: motion-backend
+  PYTHON_VERSION: 3.6.9
 
 jobs:
-  # This workflow contains a single job called "build"
   build-push:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
+    
     env:
       GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      
+    - name: Set up Python  ${{ PYTHON_VERSION }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ PYTHON_VERSION }}
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
-        pip install -r backend/requirements.txt
+        pip install -r backend/requirements/dev.txt
 
     - name: Download model artifacts
       working-directory: backend
       run: 
-        python dowload_artifacts.py
+        python download_artifacts.py
 
     - name: Lint with flake8
       working-directory: backend
       run: |
-        # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --ignore=E501 --show-source --statistics
 
     - name: Test with pytest
