@@ -62,6 +62,7 @@ jobs:
       run: |
         echo "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}"
         ls | cat
+        ls artifacts/model | cat
         gcloud builds submit \
           --quiet \
           --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}" \
