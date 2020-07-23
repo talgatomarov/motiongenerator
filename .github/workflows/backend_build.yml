@@ -10,6 +10,7 @@ on:
 env:
   PROJECT_ID: motiongenerator
   SERVICE_NAME: motion-backend
+  RELEASE_VERSION: ${GITHUB_REF#refs/*/}
   PYTHON_VERSION: 3.6.9
 
 jobs:
@@ -61,5 +62,5 @@ jobs:
       run: |-
         gcloud builds submit \
           --quiet \
-          --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$GITHUB_SHA" \
+          --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$RELEASE_VERSION" \
           --timeout 3600
