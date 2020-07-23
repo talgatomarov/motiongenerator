@@ -61,6 +61,7 @@ jobs:
       working-directory: backend
       run: |
         echo "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}"
+        ls | cat
         gcloud builds submit \
           --quiet \
           --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}" \
