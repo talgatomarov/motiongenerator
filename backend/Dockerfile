@@ -6,7 +6,7 @@ RUN pip install -r requirements/prod.txt
 
 
 WORKDIR /app
-ADD . .
+ADD . /app
 
 EXPOSE 8080
 
