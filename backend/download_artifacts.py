@@ -27,6 +27,11 @@ if __name__ == '__main__':
 
     blob = bucket.get_blob(model_zip)
     logging.info("Started downloading file")
+
+    if not os.path.exists('artifacts'):
+        logging.info("Created artifacts directory")
+        os.makedirs('artifacts')
+
     blob.download_to_filename(os.path.join('artifacts', model_zip))
     logging.info("Finished downloading file")
 
