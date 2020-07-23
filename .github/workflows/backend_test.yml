@@ -5,6 +5,10 @@ on:
     paths:
       - 'backend/**'
     branches: [ master ]
+  push:
+    paths:
+      - 'backend/**'
+    branches: [ master ]
     
 env:
   PROJECT_ID: motiongenerator
@@ -15,6 +19,9 @@ jobs:
   build-push:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.7, 3.8]
 
     env:
       GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
@@ -23,18 +30,22 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
+      
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
       run: |
-        sudo apt-get install python3-setuptools
-        python3 -m pip install --upgrade pip
-        python3 -m pip install flake8 pytest
-        python3 -m pip install -r backend/requirements.txt
+        python -m pip install --upgrade pip
+        pip install flake8 pytest
+        pip install -r backend/requirements.txt
 
     - name: Download model artifacts
       working-directory: backend
       run: 
-        python3 download_artifacts.py
+        python download_artifacts.py
 
     - name: Lint with flake8
       working-directory: backend
