@@ -57,6 +57,7 @@ jobs:
 
     # Build and push image to Google Container Registry
     - name: Build
+      working-directory: backend
       run: |-
         gcloud builds submit \
           --quiet \
