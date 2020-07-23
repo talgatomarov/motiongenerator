@@ -59,7 +59,8 @@ jobs:
     # Build and push image to Google Container Registry
     - name: Build
       working-directory: backend
-      run: |-
+      run: |
+        echo "gcr.io/$PROJECT_ID/$SERVICE_NAME:$RELEASE_VERSION"
         gcloud builds submit \
           --quiet \
           --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$RELEASE_VERSION" \
