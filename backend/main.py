@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from routers import generate
 
+
 def create_app():
     app = FastAPI(docs_url='/api/docs',
                   openapi_url="/api/openapi.json")
@@ -11,5 +12,6 @@ def create_app():
     )
 
     return app
+
 
 app = create_app()
