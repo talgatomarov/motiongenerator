@@ -60,8 +60,8 @@ jobs:
     - name: Build
       working-directory: backend
       run: |
-        echo "gcr.io/$PROJECT_ID/$SERVICE_NAME:$RELEASE_VERSION"
+        echo "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}"
         gcloud builds submit \
           --quiet \
-          --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:$RELEASE_VERSION" \
+          --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}" \
           --timeout 3600
