@@ -5,8 +5,8 @@ from .models import GenerateRequest, GenerateResponse
 
 router = APIRouter()
 
-model = GPT2LMHeadModel.from_pretrained("artifacts/model")
-tokenizer = GPT2Tokenizer.from_pretrained("artifacts/model")
+model = GPT2LMHeadModel.from_pretrained("./artifacts/model")
+tokenizer = GPT2Tokenizer.from_pretrained("./artifacts/model")
 stop_token = '<|endoftext|>'
 
 
