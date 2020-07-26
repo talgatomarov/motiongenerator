@@ -27,7 +27,7 @@ const MotionForm = () => {
         body: JSON.stringify({prefix  : prefix, temperature: temperature})
     }
 
-    fetch('/api/generate/', requestOptions)
+    fetch('/api/generate', requestOptions)
         .then(response => response.json())
         .then(data => {
           setMotions(data.motions);
