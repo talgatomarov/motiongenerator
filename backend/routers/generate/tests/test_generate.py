@@ -5,10 +5,11 @@ from main import app
 client = TestClient(app)
 
 model_folder = './artifacts/model'
-model_files = ['config.json', 'pytorch_model.bin', 'training_args.bin',
-                'special_tokens_map.json', 'merges.txt', 'run_name.txt',
-                'tokenizer_config.json', 'vocab.json']
-
+model_files = [
+    'config.json', 'pytorch_model.bin', 'training_args.bin',
+    'special_tokens_map.json', 'merges.txt', 'run_name.txt',
+    'tokenizer_config.json', 'vocab.json'
+]
 
 
 def test_get_predict():
@@ -27,8 +28,8 @@ def test_post_predict():
     assert response.status_code == 200
     assert len(response.json()["motions"]) == 5
 
+
 def test_artifacts():
     for f in model_files:
         file_path = os.path.join(model_folder, f)
         assert os.path.isfile(file_path)
-
