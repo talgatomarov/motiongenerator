@@ -12,6 +12,7 @@ env:
   SERVICE_NAME: motion-backend
   RELEASE_VERSION: ${GITHUB_REF#refs/*/}
   PYTHON_VERSION: 3.6.9
+  RUN_REGION: us-central1
 
 jobs:
   build-push:
@@ -67,3 +68,13 @@ jobs:
           --quiet \
           --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}" \
           --timeout 3600
+
+    # Deploy image to Cloud Run
+    - name: Deploy
+      run: |-
+        gcloud run deploy "$SERVICE_NAME" \
+          --quiet \
+          --region "$RUN_REGION" \
+          --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}" \
+          --platform "managed" \
+          --allow-unauthenticated
