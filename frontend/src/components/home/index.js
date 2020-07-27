@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 0),
   },
   container: {
-    padding: theme.spacing(4, 0)
+    padding: theme.spacing(4, 2)
   },
   heroMain: {
     paddingBottom: theme.spacing(2)
@@ -30,8 +30,8 @@ const Home = () => {
 
   return (
     <div>
-      <Navbar/>
       <Container className={classes.container}>
+      <Navbar/>
           <Grid
             container
           >
