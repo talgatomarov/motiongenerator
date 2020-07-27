@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 import MotionForm from './MotionForm';
 import Navbar from '../navbar';
+import aiIcon from '../../images/ai.svg'
 
 const useStyles = makeStyles((theme) => ({
   item: {
@@ -30,19 +31,23 @@ const Home = () => {
       <Container className={classes.container}>
           <Grid
             container
-            direction={"column"}
           >
 
             <Grid item className={classes.item} lg={8} md={8} xs={12}>
               <Typography variant="h2">
                 Generate debating motion
               </Typography >
-            </Grid>
-            <Grid item className={classes.item} xs={12}>
+
               <Typography variant="h6">
                 using state-of-the-art natural languange model.
               </Typography >
             </Grid>
+
+
+            <Grid item className={classes.item} lg={4} md={4} xs={12} align="center">
+              <img src={aiIcon} alt="AI Icon" width="256" height="256"/>
+            </Grid>
+
 
 
             <Grid item className={classes.item} xs={12}>
