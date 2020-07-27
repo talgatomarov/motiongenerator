@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     padding: theme.spacing(4, 0)
+  },
+  heroMain: {
+    paddingBottom: theme.spacing(2)
   }
 }));
 
@@ -34,7 +37,7 @@ const Home = () => {
           >
 
             <Grid item className={classes.item} lg={8} md={8} xs={12}>
-              <Typography variant="h2">
+              <Typography variant="h2" className={classes.heroMain}>
                 Generate debating motion
               </Typography >
 
@@ -45,7 +48,7 @@ const Home = () => {
 
 
             <Grid item className={classes.item} lg={4} md={4} xs={12} align="center">
-              <img src={aiIcon} alt="AI Icon" width="256" height="256"/>
+              <img src={aiIcon} alt="AI Icon" width="192" height="192"/>
             </Grid>
 
 
