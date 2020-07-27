@@ -5,7 +5,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import MotionForm from './MotionForm'
+import MotionForm from './MotionForm';
+import Navbar from '../navbar';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +33,8 @@ const Home = () => {
 
 
   return (
+    <div>
+      <Navbar/>
       <Container>
         <Paper className={classes.paper} elevation={1} >
           <Grid
@@ -80,6 +83,7 @@ const Home = () => {
           </Grid>
         </Paper>
       </Container>
+    </div>
   );
 };
 
