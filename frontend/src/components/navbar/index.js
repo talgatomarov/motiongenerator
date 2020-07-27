@@ -6,11 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 const Navbar = () => {
   return (
-    <AppBar>
-      <Toolbar>
-          <Typography variant="h6">motiongenerator</Typography>
-      </Toolbar>
-    </AppBar>
+      <Typography variant="h6">motiongenerator</Typography>
   );
 };
 

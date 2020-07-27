@@ -27,11 +27,12 @@ const Home = () => {
   return (
     <div>
       <Container className={classes.container}>
-      <Navbar/>
           <Grid
             container
             direction={"column"}
           >
+
+         <Navbar/>
 
             <Grid item className={classes.item} xs={12}>
             <Typography variant="h2">
