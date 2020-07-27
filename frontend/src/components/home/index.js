@@ -36,7 +36,6 @@ const Home = () => {
     <div>
       <Navbar/>
       <Container>
-        <Paper className={classes.paper} elevation={1} >
           <Grid
             container
             direction={"column"}
@@ -81,7 +80,6 @@ const Home = () => {
               <MotionForm/>
             </Grid>
           </Grid>
-        </Paper>
       </Container>
     </div>
   );
