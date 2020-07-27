@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import {analytics} from '../base.js';
+import {analytics} from '../../base.js';
 
 import MotionModal from './MotionModal'
 
