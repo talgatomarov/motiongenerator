@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400
   },
   helper: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(3),
   },
   helperTitle: {
     paddingBottom: theme.spacing(2)
