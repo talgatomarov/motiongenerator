@@ -46,6 +46,7 @@ const MotionForm = () => {
             <TextField
               id="standard-basic"
               label="Motion"
+              placeholder="This house believes that"
               fullWidth
               multiline
               variant="outlined"
