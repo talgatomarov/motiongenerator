@@ -10,7 +10,7 @@ import aiIcon from '../../images/ai.svg'
 
 const useStyles = makeStyles((theme) => ({
   item: {
-    padding: theme.spacing(2, 2),
+    padding: theme.spacing(2, 0),
   },
   container: {
     padding: theme.spacing(4, 0)
