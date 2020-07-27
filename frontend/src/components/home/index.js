@@ -73,7 +73,7 @@ const Home = () => {
             <Grid item className={classes.item} lg={6} md={6} xs={12}>
               <Paper className={classes.helper}>
                 <Typography variant="h6" className={classes.helperTitle}>
-                  What is debating motion?
+                  What is a debating motion?
                 </Typography>
                 <Typography variant="body2" className={classes.helperText}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus maximus massa. Phasellus tristique, risus viverra accumsan ornare, nulla tellus efficitur massa, a posuere libero velit et magna. Ut arcu sem, luctus eget accumsan vitae, posuere at ex. Maecenas auctor placerat ex. Sed luctus diam sit amet tincidunt ultricies. Vivamus eros velit, pretium a diam in, blandit vulputate quam. Nam imperdiet pellentesque nunc. Phasellus sit amet sem ut tortor condimentum tincidunt eget eu urna. Vivamus urna velit, pulvinar eget elementum nec, sodales euismod leo.
@@ -84,7 +84,7 @@ const Home = () => {
             <Grid item className={classes.item} lg={6} md={6} xs={12}>
               <Paper className={classes.helper}>
                 <Typography variant="h6" className={classes.helperTitle}>
-                  What is the natural language model?
+                  What is a natural language model?
                 </Typography>
                 <Typography variant="body2" className={classes.helperText}>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus maximus massa. Phasellus tristique, risus viverra accumsan ornare, nulla tellus efficitur massa, a posuere libero velit et magna. Ut arcu sem, luctus eget accumsan vitae, posuere at ex. Maecenas auctor placerat ex. Sed luctus diam sit amet tincidunt ultricies. Vivamus eros velit, pretium a diam in, blandit vulputate quam. Nam imperdiet pellentesque nunc. Phasellus sit amet sem ut tortor condimentum tincidunt eget eu urna. Vivamus urna velit, pulvinar eget elementum nec, sodales euismod leo.
