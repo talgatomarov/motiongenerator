@@ -6,6 +6,7 @@ on:
       - created
     paths:
       - 'backend/**'
+      - 'frontend/**'
   
 env:
   PROJECT_ID: motiongenerator
