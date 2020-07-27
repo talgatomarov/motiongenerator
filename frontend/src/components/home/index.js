@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4, 2)
   },
   heroMain: {
-    paddingBottom: theme.spacing(2)
+    paddingBottom: theme.spacing(2),
+    fontWeight: 400
   }
 }));
 
@@ -41,7 +42,7 @@ const Home = () => {
                 Generate debating motion
               </Typography >
 
-              <Typography variant="h6">
+              <Typography variant="h5">
                 using state-of-the-art natural languange model.
               </Typography >
             </Grid>
