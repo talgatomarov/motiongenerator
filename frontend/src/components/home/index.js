@@ -9,10 +9,10 @@ import Navbar from '../navbar';
 
 const useStyles = makeStyles((theme) => ({
   item: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(2, 2),
   },
   container: {
-    padding: '128px 0'
+    padding: theme.spacing(4, 0)
   }
 }));
 
@@ -26,21 +26,22 @@ const Home = () => {
 
   return (
     <div>
+      <Navbar/>
       <Container className={classes.container}>
           <Grid
             container
             direction={"column"}
           >
 
-         <Navbar/>
-
+            <Grid item className={classes.item} lg={8} md={8} xs={12}>
+              <Typography variant="h2">
+                Generate debating motion
+              </Typography >
+            </Grid>
             <Grid item className={classes.item} xs={12}>
-            <Typography variant="h2">
-              Generate debating motion
-            </Typography >
-            <Typography variant="h6">
-              using state-of-the-art natural languange model.
-            </Typography >
+              <Typography variant="h6">
+                using state-of-the-art natural languange model.
+              </Typography >
             </Grid>
 
 
