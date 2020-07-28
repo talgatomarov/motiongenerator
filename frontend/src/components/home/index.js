@@ -1,11 +1,11 @@
 import React from 'react'
 import Template from '../template'
-import MotionForm from './MotionForm'
+import Hero from './hero'
 
 const Home = (props) => {
   return (
     <Template>
-      <MotionForm/>
+      <Hero/>
     </Template>
   );
 };
