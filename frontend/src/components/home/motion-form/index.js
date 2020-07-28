@@ -20,9 +20,6 @@ const useStyles = makeStyles((theme) => ({
   button: {
     paddingTop: theme.spacing(6)
   },
-  fab: {
-    margin: theme.spacing(2),
-  },
 }));
 
 
@@ -78,12 +75,12 @@ const MotionForm = () => {
 
           <Grid item xs={12} md={4}>
             <Typography id="discrete-slider" gutterBottom>
-               Temperature &nbsp;
+               Temperature
               <Tooltip 
                 title="Low temperatures result in more predictable text. Higher temperatures result in more surprising text"
                 placement="top"
               >
-                <HelpIcon style={{ fontSize: 16 }} color="primary" />
+                <Button><HelpIcon style={{ fontSize: 16 }} color="primary" /></Button>
               </Tooltip>
             </Typography>
             <Slider
