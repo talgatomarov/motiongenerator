@@ -6,7 +6,6 @@ import Paper from '@material-ui/core/Paper';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
-import MotionList from './MotionList'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +22,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const MotionList = ({motions}) => {
+  return (
+    <ul>
+      {motions.map(motion => (
+        <li key={motion}>{motion}</li>
+      ))}
+    </ul>
+  )
+};
+
+const LoadingMessage = () => {
+  return (
+    <div>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={12} align="center">
+          <Typography variant="body1" gutterBottom>
+            The motions are being generated. It may take a while.
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={12} align="center">
+          <CircularProgress size={24} />
+        </Grid>
+      </Grid>
+    </div>
+  );
+};
+
 const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
   const classes = useStyles();
 
@@ -35,22 +61,6 @@ const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
     setMotions([]);
   };
 
-  const LoadingMessage = () => {
-    return (
-      <div>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={12} align="center">
-            <Typography variant="body1" gutterBottom>
-              The motions are being generated. It may take a while.
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={12} align="center">
-            <CircularProgress size={24} />
-          </Grid>
-        </Grid>
-      </div>
-    );
-  };
 
   return (
     <Modal
