@@ -7,7 +7,7 @@ import './app.css'
 const theme = createMuiTheme({
   typography: {
     fontFamily: [
-      "Montserrat",
+      "Raleway",
       "sans-serif"
     ].join(','),
   },
