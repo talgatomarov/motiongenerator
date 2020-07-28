@@ -76,7 +76,7 @@ const Home = () => {
                   What is a debating motion?
                 </Typography>
                 <Typography variant="body2" className={classes.helperText}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus maximus massa. Phasellus tristique, risus viverra accumsan ornare, nulla tellus efficitur massa, a posuere libero velit et magna. Ut arcu sem, luctus eget accumsan vitae, posuere at ex. Maecenas auctor placerat ex. Sed luctus diam sit amet tincidunt ultricies. Vivamus eros velit, pretium a diam in, blandit vulputate quam. Nam imperdiet pellentesque nunc. Phasellus sit amet sem ut tortor condimentum tincidunt eget eu urna. Vivamus urna velit, pulvinar eget elementum nec, sodales euismod leo.
+                  A <span style={{fontWeight: 500}}>motion</span>, also known as a proposition or resolution, is a statement that usually sets the topic for the given debate. It usually looks like: <i>"This house would ban gun ownership"</i> or <i>"This house believes that charities should not accept money from donors they consider immoral"</i>.
                 </Typography>
               </Paper>
             </Grid>
