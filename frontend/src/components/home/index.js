@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 0),
   },
   container: {
-    padding: theme.spacing(4, 2)
+    padding: theme.spacing(4, 3)
   },
   heroMain: {
     paddingBottom: theme.spacing(2),
