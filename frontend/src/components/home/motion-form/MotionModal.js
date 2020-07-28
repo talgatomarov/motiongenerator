@@ -52,10 +52,6 @@ const LoadingMessage = () => {
 const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
   const classes = useStyles();
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
   const handleClose = () => {
     setOpen(false);
     setMotions([]);

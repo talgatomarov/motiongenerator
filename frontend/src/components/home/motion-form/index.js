@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import {analytics} from '../../base.js';
+import {analytics} from '../../../base.js';
 
 import MotionModal from './MotionModal'
 
@@ -41,7 +41,13 @@ const MotionForm = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={6} direction="row">
+        <Grid container spacing={2} direction="row">
+          <Grid item xs={12}>
+            <Typography variant="body1">
+              Enter beginning of the motion:
+            </Typography>
+          </Grid>
+
           <Grid item xs={12} md={8}>
             <TextField
               id="standard-basic"
