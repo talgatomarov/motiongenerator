@@ -87,7 +87,7 @@ const Home = () => {
                   What is a natural language model?
                 </Typography>
                 <Typography variant="body2" className={classes.helperText}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed maximus maximus massa. Phasellus tristique, risus viverra accumsan ornare, nulla tellus efficitur massa, a posuere libero velit et magna. Ut arcu sem, luctus eget accumsan vitae, posuere at ex. Maecenas auctor placerat ex. Sed luctus diam sit amet tincidunt ultricies. Vivamus eros velit, pretium a diam in, blandit vulputate quam. Nam imperdiet pellentesque nunc. Phasellus sit amet sem ut tortor condimentum tincidunt eget eu urna. Vivamus urna velit, pulvinar eget elementum nec, sodales euismod leo.
+                  A statistical language model is a probability distribution over sequences of words. It can be used to predict the next most probable word(s). The model used in this web-application is based upon distillGPT2 model.
                 </Typography>
               </Paper>
             </Grid>
