@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Fab from '@material-ui/core/Fab';
+import HelpIcon from '@material-ui/icons/Help';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 import {analytics} from '../../../base.js';
 
 import MotionModal from './MotionModal'
@@ -16,7 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     paddingTop: theme.spacing(6)
-  }
+  },
+  fab: {
+    margin: theme.spacing(2),
+  },
 }));
 
 
@@ -71,7 +77,15 @@ const MotionForm = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Typography id="discrete-slider" gutterBottom>Temperature</Typography>
+            <Typography id="discrete-slider" gutterBottom>
+               Temperature &nbsp;
+              <Tooltip 
+                title="Low temperatures result in more predictable text. Higher temperatures result in more surprising text"
+                placement="top"
+              >
+                <HelpIcon style={{ fontSize: 16 }} color="primary" />
+              </Tooltip>
+            </Typography>
             <Slider
               defaultValue={0.7}
               aria-labelledby="discrete-slider"
@@ -83,6 +97,7 @@ const MotionForm = () => {
               onChange={e => setTemperature(e.target.value)}
             />
           </Grid>
+
 
           <Grid item xs={12} md={12} className={classes.button}>
             <Button type="submit" variant="contained" color="primary">Generate</Button>
