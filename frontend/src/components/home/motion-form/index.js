@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4)
+  },
+  button: {
+    paddingTop: theme.spacing(6)
   }
 }));
 
@@ -51,14 +54,11 @@ const MotionForm = () => {
   return (
     <div className={classes.root}>
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={2} direction="row">
-          <Grid item xs={12}>
+        <Grid container spacing={6} direction="row">
+          <Grid item xs={12} md={8}>
             <Typography variant="body1">
               Enter beginning of the motion:
             </Typography>
-          </Grid>
-
-          <Grid item xs={12} md={8}>
             <TextField
               id="standard-basic"
               label="Motion"
@@ -84,7 +84,7 @@ const MotionForm = () => {
             />
           </Grid>
 
-          <Grid item xs={12} md={12}>
+          <Grid item xs={12} md={12} className={classes.button}>
             <Button type="submit" variant="contained" color="primary">Generate</Button>
           </Grid>
         </Grid>
