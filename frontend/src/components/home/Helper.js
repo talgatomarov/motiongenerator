@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: theme.spacing(3)
+    padding: theme.spacing(4)
   },
   title: {
     paddingBottom: theme.spacing(2)
