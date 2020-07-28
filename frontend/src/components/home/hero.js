@@ -6,9 +6,10 @@ import aiIcon from './images/ai.svg'
 
 
 const useStyles = makeStyles((theme) => ({
-  item: {
-    padding: theme.spacing(2, 0),
-  },
+  title: {
+    paddingBottom: theme.spacing(2),
+    fontWeight: 400
+  }
 }));
 
 const Hero = () => {
@@ -16,8 +17,8 @@ const Hero = () => {
 
   return (
     <Grid container>
-      <Grid item className={classes.item} lg={8} md={8} xs={12}>
-        <Typography variant="h3" className={classes.heroMain}>
+      <Grid item lg={8} md={8} xs={12}>
+        <Typography variant="h3" className={classes.title}>
           Generate debating motion
         </Typography >
 
@@ -27,7 +28,7 @@ const Hero = () => {
       </Grid>
 
 
-      <Grid item className={classes.item} lg={4} md={4} xs={12} align="center">
+      <Grid item lg={4} md={4} xs={12} align="center">
         <img src={aiIcon} alt="AI Icon" width="192" height="192"/>
       </Grid>
     </Grid>
