@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import HelpIcon from '@material-ui/icons/Help';
@@ -9,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Tooltip from '@material-ui/core/Tooltip';
 import {analytics} from '../../../base.js';
+
 
 import MotionModal from './MotionModal'
 
@@ -37,13 +39,8 @@ const MotionForm = () => {
     setLoading(true);
     setOpen(true);
 
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({prefix  : prefix, temperature: temperature})
-    }
 
-    fetch('/api/generate', requestOptions)
+    axios.post('/api/generate',{prefix  : prefix, temperature: temperature} )
         .then(response => response.json())
         .then(data => {
           setMotions(data.motions);
