@@ -4,4 +4,5 @@ import { render } from '@testing-library/react';
 import MotionForm from './index.js'
 
 test('Render MotionForm', () => {
+  render(<MotionForm/>);
 })
