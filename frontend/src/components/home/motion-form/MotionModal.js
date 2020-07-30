@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 const MotionList = ({motions}) => {
   return (
-    <ul>
+    <ul data-testid="motion-list">
       {motions.map(motion => (
         <li key={motion}>{motion}</li>
       ))}
@@ -34,7 +34,7 @@ const MotionList = ({motions}) => {
 
 const LoadingMessage = () => {
   return (
-    <div>
+    <div data-testid="loading-message">
       <Grid container spacing={4}>
         <Grid item xs={12} md={12} align="center">
           <Typography variant="body1" gutterBottom>
@@ -70,12 +70,14 @@ const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
       BackdropProps={{
         timeout: 500,
       }}
+      data-testid="motion-modal"
     >
       <Fade in={open}>
         <Paper className={classes.paper}>
           <p>Generated Motions</p>
           {loading && <LoadingMessage/>}
-          <MotionList motions={motions}/>
+          {!loading && <MotionList motions={motions}/>}
+          
         </Paper>
       </Fade>
     </Modal>

@@ -41,7 +41,7 @@ const MotionForm = () => {
 
 
     axios.post('/api/generate',{prefix  : prefix, temperature: temperature} )
-        .then(response => response.json())
+      //  .then(response => response.json())
         .then(data => {
           setMotions(data.motions);
           analytics.logEvent('generate_motions', {generated_motions: motions, input_motion: prefix});
@@ -67,6 +67,7 @@ const MotionForm = () => {
               multiline
               variant="outlined"
               onChange={e => setPrefix(e.target.value)}
+              inputProps={{"data-testid": "generate-text-field"}}
             />
           </Grid>
 
@@ -94,7 +95,14 @@ const MotionForm = () => {
 
 
           <Grid item xs={12} md={12} className={classes.button}>
-            <Button type="submit" variant="contained" color="primary">Generate</Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              data-testid="generate-button"
+            >
+              Generate
+            </Button>
           </Grid>
         </Grid>
       </form>
