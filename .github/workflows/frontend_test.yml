@@ -46,12 +46,12 @@ jobs:
         npm run build
 
     - name: Deploy to Firebase
-      working-directory: frontend
       uses: w9jds/firebase-action@master
       with:
         args: deploy --only hosting:motiongenerator-development
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        PROJECT_PATH: ./frontend
         REACT_APP_FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
         REACT_APP_FIREBASE_DATABASE: ${{ secrets.REACT_APP_FIREBASE_DATABASE }}
         REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
