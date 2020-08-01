@@ -4,10 +4,12 @@ on:
   pull_request:
     paths:
       - 'frontend/**'
+      - '.github/workflows/**'
     branches: [ master ]
   push:
     paths:
       - 'frontend/**'
+      - '.github/workflows/**'
     branches: [ master ]
     
 env:
