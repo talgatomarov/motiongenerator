@@ -39,11 +39,15 @@ jobs:
 
     - name: Test
       working-directory: frontend
+      env:
+        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
       run: |
         npm run test
 
     - name: Build
       working-directory: frontend
+      env:
+        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
       run: |
         npm run build
 
@@ -53,6 +57,4 @@ jobs:
         args: deploy --only hosting:motiongenerator-development
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        # PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
         PROJECT_PATH: ./frontend
