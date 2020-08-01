@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "motiongenerator"
+  },
+  "targets": {
+    "motiongenerator": {
+      "hosting": {
+        "motiongenerator-development": [
+          "motiongenerator-development"
+        ],
+        "motiongenerator": [
+          "motiongenerator"
+        ]
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-import * as firebase from "firebase/app";
+import firebase from "firebase/app";
 import "firebase/analytics";
 
 const app = firebase.initializeApp({
@@ -12,5 +12,5 @@ const app = firebase.initializeApp({
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
 });
 
-export default app;
 export const analytics = firebase.analytics();
+export default app;
