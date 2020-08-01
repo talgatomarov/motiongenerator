@@ -46,6 +46,7 @@ jobs:
         npm run build
 
     - name: Deploy to Firebase
+      working-directory: frontend
       uses: w9jds/firebase-action@master
       with:
         args: deploy --only hosting:motiongenerator-development
