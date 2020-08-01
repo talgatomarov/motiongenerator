@@ -1,0 +1,61 @@
+name: Test Backend
+
+on:
+  pull_request:
+    paths:
+      - 'frontend/**'
+    branches: [ master ]
+  push:
+    paths:
+      - 'frontend/**'
+    branches: [ master ]
+    
+env:
+  PROJECT_ID: motiongenerator
+  SERVICE_NAME: motion-backend
+  NODE_VERSION: 13.x
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    - name:
+      uses: actions/setup-node@master
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install dependencies
+      working-directory: frontend
+      run: |
+        npm install
+
+    - name: Test
+      working-directory: frontend
+      run: |
+        npm run test
+
+    - name: Build
+      working-directory: frontend
+      run: |
+        npm run build
+
+    - name: Deploy to Firebase
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only hosting:motiongenerator-development
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        REACT_APP_FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }
+        REACT_APP_FIREBASE_DATABASE: ${{ secrets.REACT_APP_FIREBASE_DATABASE }}
+        REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+        REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+        REACT_APP_FIREBASE_SENDER_ID: ${{ secrets.REACT_APP_FIREBASE_SENDER_ID }}
+        REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
+        REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}
+        REACT_APP_FIREBASE_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_DOMAIN }}
