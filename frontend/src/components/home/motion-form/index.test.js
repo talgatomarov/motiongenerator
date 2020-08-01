@@ -18,7 +18,7 @@ jest.mock('firebase/app', () => {
   }
 });
 
-const mockMotions = {motions: ["motion 1", "motion 2", "motion 3", "motion 4", "motion 5"]};
+const mockMotions = {data: {motions: ["motion 1", "motion 2", "motion 3", "motion 4", "motion 5"]}};
 
 test('Render MotionForm', () => {
   render(<MotionForm/>);
@@ -47,5 +47,5 @@ test('Test successful API call', async () => {
   expect(screen.queryByTestId('loading-message')).toBeNull();
   expect(screen.getByTestId('motion-list')).toBeInTheDocument()
 
-  mockMotions.motions.forEach(motion => expect(screen.getByText(motion)).toBeInTheDocument());
+  mockMotions.data.motions.forEach(motion => expect(screen.getByText(motion)).toBeInTheDocument());
 });
