@@ -42,8 +42,8 @@ const MotionForm = () => {
 
     axios.post('/api/generate',{prefix  : prefix, temperature: temperature} )
       //  .then(response => response.json())
-        .then(data => {
-          setMotions(data.motions);
+        .then(response => {
+          setMotions(response.data.motions);
           analytics.logEvent('generate_motions', {generated_motions: motions, input_motion: prefix});
         })
         .then(() => {
