@@ -57,4 +57,5 @@ jobs:
         args: deploy --only hosting:motiongenerator-development
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
         PROJECT_PATH: ./frontend
