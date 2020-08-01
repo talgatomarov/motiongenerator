@@ -51,6 +51,7 @@ jobs:
         args: deploy --only hosting:motiongenerator-development
       env:
         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
         PROJECT_PATH: ./frontend
         REACT_APP_FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
         REACT_APP_FIREBASE_DATABASE: ${{ secrets.REACT_APP_FIREBASE_DATABASE }}
