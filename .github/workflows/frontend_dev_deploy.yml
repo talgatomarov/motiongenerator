@@ -16,11 +16,25 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Download Artifact
-      uses: actions/download-artifact@master
+    - name:
+      uses: actions/setup-node@master
       with:
-        name: frontend-build 
-        path: ./frontend/build
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install dependencies
+      working-directory: frontend
+      run: |
+        npm install
+
+    - name: Test
+      working-directory: frontend
+      run: |
+        npm run test
+
+    - name: Build
+      working-directory: frontend
+      run: |
+        npm run build
 
     - name: Deploy to Firebase
       uses: w9jds/firebase-action@master
