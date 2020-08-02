@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
-import axios from 'axios'
-import { makeStyles } from '@material-ui/core/styles';
-import HelpIcon from '@material-ui/icons/Help';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Slider from '@material-ui/core/Slider';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-import {analytics} from '../../../base.js';
+import React, { useState } from "react";
+import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
+import HelpIcon from "@material-ui/icons/Help";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
+import Tooltip from "@material-ui/core/Tooltip";
+import { analytics } from "../../../base.js";
 
-
-import MotionModal from './MotionModal'
+import MotionModal from "./MotionModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4)
+    paddingBottom: theme.spacing(4),
   },
   button: {
-    paddingTop: theme.spacing(6)
+    paddingTop: theme.spacing(6),
   },
 }));
-
 
 const MotionForm = () => {
   const classes = useStyles();
@@ -38,17 +36,20 @@ const MotionForm = () => {
     setLoading(true);
     setOpen(true);
 
-
-    axios.post('/api/generate',{prefix  : prefix, temperature: temperature} )
+    axios
+      .post("/api/generate", { prefix: prefix, temperature: temperature })
       //  .then(response => response.json())
-        .then(response => {
-          setMotions(response.data.motions);
-          analytics.logEvent('generate_motions', {generated_motions: motions, input_motion: prefix});
-        })
-        .then(() => {
-          setLoading(false);
-        })
-  }
+      .then((response) => {
+        setMotions(response.data.motions);
+        analytics.logEvent("generate_motions", {
+          generated_motions: motions,
+          input_motion: prefix,
+        });
+      })
+      .then(() => {
+        setLoading(false);
+      });
+  };
 
   return (
     <div className={classes.root}>
@@ -65,19 +66,21 @@ const MotionForm = () => {
               fullWidth
               multiline
               variant="outlined"
-              onChange={e => setPrefix(e.target.value)}
-              inputProps={{"data-testid": "generate-text-field"}}
+              onChange={(e) => setPrefix(e.target.value)}
+              inputProps={{ "data-testid": "generate-text-field" }}
             />
           </Grid>
 
           <Grid item xs={12} md={4}>
             <Typography id="discrete-slider" gutterBottom>
-               Temperature
-              <Tooltip 
+              Temperature
+              <Tooltip
                 title="Low temperatures result in more predictable text. Higher temperatures result in more surprising text"
                 placement="top"
               >
-                <Button><HelpIcon style={{ fontSize: 16 }} color="primary" /></Button>
+                <Button>
+                  <HelpIcon style={{ fontSize: 16 }} color="primary" />
+                </Button>
               </Tooltip>
             </Typography>
             <Slider
@@ -88,10 +91,9 @@ const MotionForm = () => {
               marks
               min={0.1}
               max={0.9}
-              onChange={e => setTemperature(e.target.value)}
+              onChange={(e) => setTemperature(e.target.value)}
             />
           </Grid>
-
 
           <Grid item xs={12} md={12} className={classes.button}>
             <Button
