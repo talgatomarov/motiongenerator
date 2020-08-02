@@ -6,24 +6,15 @@ on:
       - 'frontend/**'
       - '.github/workflows/**'
     branches: [ master ]
-  push:
-    paths:
-      - 'frontend/**'
-      - '.github/workflows/**'
-    branches: [ master ]
     
 env:
   NODE_VERSION: 13.x
 
 jobs:
-  build-push:
+  build:
     runs-on: ubuntu-latest
 
-    env:
-      GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
-
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
     - name:
       uses: actions/setup-node@master
@@ -37,23 +28,16 @@ jobs:
 
     - name: Test
       working-directory: frontend
-      env:
-        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
       run: |
         npm run test
 
     - name: Build
       working-directory: frontend
-      env:
-        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
       run: |
         npm run build
 
-    - name: Deploy to Firebase
-      uses: w9jds/firebase-action@master
+    - name: Archive Production Artifact
+      uses: actions/upload-artifact@master
       with:
-        args: deploy --only hosting:motiongenerator-development
-      env:
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        PROJECT_PATH: ./frontend
+        name: frontend-build 
+        path: ./frontend/build
