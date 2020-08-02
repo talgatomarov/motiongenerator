@@ -9,14 +9,6 @@ afterEach(cleanup)
 
 
 jest.mock('axios');
-jest.mock('firebase/app', () => {
-  return {
-    initializeApp: jest.fn(),
-    analytics: jest.fn(() => ({
-      logEvent: jest.fn()
-    }))
-  }
-});
 
 const mockMotions = {data: {motions: ["motion 1", "motion 2", "motion 3", "motion 4", "motion 5"]}};
 
