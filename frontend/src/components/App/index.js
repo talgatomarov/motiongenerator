@@ -2,7 +2,7 @@ import React from "react";
 import Home from "../Home";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import "./App.css";
+import "./style.css";
 
 const theme = createMuiTheme({
   typography: {
