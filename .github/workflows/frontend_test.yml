@@ -37,7 +37,6 @@ jobs:
         npm run build
 
     - name: Archive Production Artifact
-      working-directory: frontend
       uses: actions/upload-artifact@master
       with:
         name: frontend-build 
