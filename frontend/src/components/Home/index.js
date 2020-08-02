@@ -1,9 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Template from "../template";
-import Hero from "./hero";
+import Template from "../Template";
+import Hero from "./Hero";
 import Grid from "@material-ui/core/Grid";
-import MotionForm from "./motion-form";
+import MotionForm from "./MotionForm";
 import Helper from "./Helper";
 
 const useStyles = makeStyles((theme) => ({
