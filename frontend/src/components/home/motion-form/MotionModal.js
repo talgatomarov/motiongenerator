@@ -1,35 +1,35 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Paper from '@material-ui/core/Paper';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Paper from "@material-ui/core/Paper";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import Typography from "@material-ui/core/Typography";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    outline: 'none'
+    outline: "none",
   },
 }));
 
-const MotionList = ({motions}) => {
+const MotionList = ({ motions }) => {
   return (
     <ul data-testid="motion-list">
-      {motions.map(motion => (
+      {motions.map((motion) => (
         <li key={motion}>{motion}</li>
       ))}
     </ul>
-  )
+  );
 };
 
 const LoadingMessage = () => {
@@ -49,14 +49,13 @@ const LoadingMessage = () => {
   );
 };
 
-const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
+const MotionModal = ({ open, setOpen, motions, setMotions, loading }) => {
   const classes = useStyles();
 
   const handleClose = () => {
     setOpen(false);
     setMotions([]);
   };
-
 
   return (
     <Modal
@@ -75,9 +74,8 @@ const MotionModal = ({open, setOpen, motions, setMotions, loading}) => {
       <Fade in={open}>
         <Paper className={classes.paper}>
           <p>Generated Motions</p>
-          {loading && <LoadingMessage/>}
-          {!loading && <MotionList motions={motions}/>}
-          
+          {loading && <LoadingMessage />}
+          {!loading && <MotionList motions={motions} />}
         </Paper>
       </Fade>
     </Modal>
