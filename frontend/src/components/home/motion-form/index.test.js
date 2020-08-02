@@ -1,7 +1,7 @@
 // import dependencies
 import React from 'react';
-import { render, fireEvent, act, cleanup, screen,
-         wait, waitForElement, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, fireEvent, cleanup, screen,
+         waitForElementToBeRemoved } from '@testing-library/react';
 import MotionForm from './index.js'
 import axios from 'axios';
 
