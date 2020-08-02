@@ -24,7 +24,7 @@ jobs:
     - name: Install dependencies
       working-directory: frontend
       run: |
-        npm install$
+        npm install
 
     - name: Lint
       working-directory: frontend
