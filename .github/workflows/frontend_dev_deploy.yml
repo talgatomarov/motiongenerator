@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'frontend/**'
+      - '.github/workflows/frontend_dev_deploy.yml'
     branches: [ master ]
     
 env:
@@ -33,7 +34,15 @@ jobs:
     - name: Test
       working-directory: frontend
       run: |
-        npm run test
+        npm run test -- --coverage --watchAll=false
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        directory: ./frontend/coverage
+        file: clover.xml
+        name: frontend
 
     - name: Build
       working-directory: frontend
