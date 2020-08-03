@@ -8,9 +8,12 @@ import Slider from "@material-ui/core/Slider";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
-import { analytics } from "../../../base.js";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import Paper from "@material-ui/core/Paper";
 
-import MotionModal from "./MotionModal";
+import ModalMessage from "./ModalMessage.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,35 +23,53 @@ const useStyles = makeStyles((theme) => ({
   button: {
     paddingTop: theme.spacing(6),
   },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  modalPaper: {
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    outline: "none",
+  },
 }));
+
+const useMotions = () => {
+  const [data, setData] = useState({
+    error: null,
+    isLoading: false,
+    motions: [],
+  });
+
+  const fetchData = (prefix, temperature) => {
+    setData({ ...data, isLoading: true, motions: [] });
+
+    axios
+      .post("/api/generate", { prefix: prefix, temperature: temperature })
+      .then((response) => {
+        setData({ ...data, isLoading: false, motions: response.data.motions });
+      })
+      .catch((error) => {
+        setData({ ...data, isLoading: false, error: error });
+      });
+  };
+  return [data, fetchData];
+};
 
 const MotionForm = () => {
   const classes = useStyles();
 
   const [prefix, setPrefix] = useState("");
-  const [motions, setMotions] = useState([]);
   const [temperature, setTemperature] = useState(0.7);
+  const [data, fetchData] = useMotions([]);
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
+    fetchData(prefix, temperature);
     setOpen(true);
-
-    axios
-      .post("/api/generate", { prefix: prefix, temperature: temperature })
-      //  .then(response => response.json())
-      .then((response) => {
-        setMotions(response.data.motions);
-        analytics.logEvent("generate_motions", {
-          generated_motions: motions,
-          input_motion: prefix,
-        });
-      })
-      .then(() => {
-        setLoading(false);
-      });
   };
 
   return (
@@ -110,13 +131,26 @@ const MotionForm = () => {
           </Grid>
         </Grid>
       </form>
-      <MotionModal
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
         open={open}
-        setOpen={setOpen}
-        motions={motions}
-        setMotions={setMotions}
-        loading={loading}
-      />
+        onClose={() => setOpen(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        data-testid="motion-modal"
+      >
+        <Fade in={open}>
+          <Paper className={classes.modalPaper}>
+            <p>Generated Motions</p>
+            <ModalMessage data={data} />
+          </Paper>
+        </Fade>
+      </Modal>
     </div>
   );
 };
