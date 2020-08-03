@@ -52,9 +52,46 @@ describe("MotionForm", () => {
 
     expect(screen.queryByTestId("loading-message")).toBeNull();
     expect(screen.getByTestId("motion-list")).toBeInTheDocument();
+    expect(screen.queryByTestId("error-message")).toBeNull();
 
     mockMotions.data.motions.forEach((motion) =>
       expect(screen.getByText(motion)).toBeInTheDocument()
     );
+  });
+
+  test("Test failed API call", async () => {
+    const errorMessage = "Network Error";
+
+    axios.post.mockImplementationOnce(() =>
+      Promise.reject({ message: errorMessage })
+    );
+
+    render(<MotionForm />);
+
+    const generateButton = screen.getByTestId("generate-button");
+    const generateTextField = screen.getByTestId("generate-text-field");
+
+    fireEvent.change(generateTextField, { target: { value: "This house" } });
+    expect(generateTextField).toHaveValue("This house");
+
+    fireEvent.click(generateButton);
+    expect(axios.post).toHaveBeenCalledWith("/api/generate", {
+      prefix: "This house",
+      temperature: 0.7,
+    });
+
+    expect(screen.getByTestId("motion-modal")).toBeInTheDocument();
+
+    expect(screen.queryByTestId("motion-list")).toBeNull();
+    expect(screen.getByTestId("loading-message")).toBeInTheDocument();
+    expect(screen.queryByTestId("error-message")).toBeNull();
+
+    await waitForElementToBeRemoved(() =>
+      screen.getByTestId("loading-message")
+    );
+
+    expect(screen.queryByTestId("motion-list")).toBeNull();
+    expect(screen.queryByTestId("loading-message")).toBeNull();
+    expect(screen.getByTestId("error-message")).toBeInTheDocument();
   });
 });
