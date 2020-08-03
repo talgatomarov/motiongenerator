@@ -3,6 +3,7 @@ cachetools==4.1.1
 certifi==2020.6.20
 chardet==3.0.4
 click==7.1.2
+coverage==5.2.1
 dataclasses==0.6
 fastapi==0.60.1
 filelock==3.0.12
@@ -33,6 +34,7 @@ pydantic==1.6.1
 pyflakes==2.2.0
 pyparsing==2.4.7
 pytest==5.4.3
+pytest-cov==2.10.0
 pytz==2020.1
 regex==2020.7.14
 requests==2.24.0
