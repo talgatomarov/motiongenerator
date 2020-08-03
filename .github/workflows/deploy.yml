@@ -4,9 +4,6 @@ on:
   release:
     types: 
       - created
-    paths:
-      - 'backend/**'
-      - 'frontend/**'
   
 env:
   PROJECT_ID: motiongenerator
@@ -14,9 +11,10 @@ env:
   RELEASE_VERSION: ${GITHUB_REF#refs/*/}
   PYTHON_VERSION: 3.6.9
   RUN_REGION: us-central1
+  NODE_VERSION: 13.x
 
 jobs:
-  build-push:
+  deploy-backend:
     runs-on: ubuntu-latest
     
     env:
@@ -79,3 +77,42 @@ jobs:
           --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:${GITHUB_REF##*/}" \
           --platform "managed" \
           --allow-unauthenticated
+
+  deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name:
+      uses: actions/setup-node@master
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install dependencies
+      working-directory: frontend
+      run: |
+        npm install
+
+    - name: Lint
+      working-directory: frontend
+      run: |
+        npm run lint
+
+    - name: Test
+      working-directory: frontend
+      run: |
+        npm run test
+
+    - name: Build
+      working-directory: frontend
+      run: |
+        npm run build
+
+    - name: Deploy to Firebase
+      uses: w9jds/firebase-action@master
+      with:
+        args: deploy --only hosting:motiongenerator
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        PROJECT_PATH: ./frontend
