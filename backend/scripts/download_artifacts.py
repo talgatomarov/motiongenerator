@@ -8,6 +8,7 @@ from google.oauth2 import service_account
 logging.basicConfig(level=logging.INFO)
 
 # Specify project, bucket and file location of the model artifact
+artifact_folder = '../artifacts'
 project_id = 'motiongenerator'
 bucket_name = 'motiongenerator'
 model_zip = 'atomic-dawn-43.zip'
@@ -29,16 +30,16 @@ if __name__ == '__main__':
     blob = bucket.get_blob(model_zip)
     logging.info("Started downloading file")
 
-    if not os.path.exists('artifacts'):
+    if not os.path.exists(artifact_folder):
         logging.info("Created artifacts directory")
-        os.makedirs('artifacts')
+        os.makedirs(artifact_folder)
 
-    blob.download_to_filename(os.path.join('artifacts', model_zip))
+    blob.download_to_filename(os.path.join(artifact_folder, model_zip))
     logging.info("Finished downloading file")
 
-    with zipfile.ZipFile(os.path.join('artifacts', model_zip), "r") as zip_ref:
+    with zipfile.ZipFile(os.path.join(artifact_folder, model_zip), "r") as zip_ref:
         logging.info("Unzipping archive")
-        zip_ref.extractall(os.path.join('artifacts', 'model'))
+        zip_ref.extractall(os.path.join(artifact_folder, 'model'))
 
-    os.remove(os.path.join('artifacts', model_zip))
+    os.remove(os.path.join(artifact_folder, model_zip))
     logging.info("Deleted archive")

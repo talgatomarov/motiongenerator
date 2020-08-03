@@ -39,7 +39,7 @@ jobs:
     - name: Download model artifacts
       working-directory: backend
       run: 
-        python download_artifacts.py
+        python scripts/download_artifacts.py
 
     - name: Lint with flake8
       working-directory: backend
