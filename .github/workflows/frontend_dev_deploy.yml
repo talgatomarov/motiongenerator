@@ -41,8 +41,6 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./frontend/coverage/clover.xml
-        name: frontend
-        flags: frontend
 
     - name: Build
       working-directory: frontend
