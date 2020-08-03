@@ -8,7 +8,7 @@ from google.oauth2 import service_account
 logging.basicConfig(level=logging.INFO)
 
 # Specify project, bucket and file location of the model artifact
-artifact_folder = '../artifacts'
+artifact_folder = 'artifacts'
 project_id = 'motiongenerator'
 bucket_name = 'motiongenerator'
 model_zip = 'atomic-dawn-43.zip'
