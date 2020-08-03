@@ -77,7 +77,7 @@ const MotionModal = ({ open, setOpen, motions, setMotions, loading }) => {
           {loading && <LoadingMessage />}
           {!loading && <MotionList motions={motions} />}
         </Paper>
-        // TODO: Close button
+        {/* TODO: Close button*/}
       </Fade>
     </Modal>
   );
