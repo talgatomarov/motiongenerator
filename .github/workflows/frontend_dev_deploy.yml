@@ -3,14 +3,13 @@ on:
   push:
     paths:
       - 'frontend/**'
-      - '.github/workflows/**'
     branches: [ master ]
     
 env:
   NODE_VERSION: 13.x
 
 jobs:
-  deploy:
+  deploy-dev:
     runs-on: ubuntu-latest
 
     steps:
