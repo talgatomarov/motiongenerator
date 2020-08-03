@@ -54,11 +54,14 @@ const MotionForm = () => {
   return (
     <div className={classes.root}>
       <form onSubmit={handleSubmit}>
-        <Grid container spacing={6} direction="row">
+        <Grid container spacing={2} direction="row">
           <Grid item xs={12} md={8}>
             <Typography variant="body1">
               Enter beginning of the motion:
             </Typography>
+          </Grid>
+
+          <Grid item xs={12} md={8}>
             <TextField
               id="standard-basic"
               label="Motion"
