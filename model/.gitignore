@@ -4,3 +4,5 @@ results/
 logs/
 wandb/
 *.zip
+.coverage
+coverage.xml
