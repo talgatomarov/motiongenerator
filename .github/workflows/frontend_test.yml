@@ -33,4 +33,4 @@ jobs:
     - name: Test
       working-directory: frontend
       run: |
-        npm run test -- --coverage --watchAll=false
+        npm run test
