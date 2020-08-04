@@ -9,6 +9,9 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(2),
     fontWeight: 400,
   },
+  image: {
+    padding: theme.spacing(4, 0),
+  },
 }));
 
 const Hero = () => {
@@ -26,7 +29,7 @@ const Hero = () => {
         </Typography>
       </Grid>
 
-      <Grid item lg={4} md={4} xs={12} align="center">
+      <Grid item lg={4} md={4} xs={12} align="center" className={classes.image}>
         <img src={aiIcon} alt="AI Icon" width="192" height="192" />
       </Grid>
     </Grid>
