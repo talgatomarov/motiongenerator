@@ -157,6 +157,7 @@ const MotionForm = () => {
                 <Button
                   className={classes.closeButton}
                   onClick={() => setOpen(false)}
+                  data-testid="close-button"
                 >
                   <CloseIcon />
                 </Button>
