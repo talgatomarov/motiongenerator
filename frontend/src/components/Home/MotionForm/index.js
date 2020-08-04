@@ -101,7 +101,12 @@ const MotionForm = () => {
             <Typography id="discrete-slider" gutterBottom>
               Temperature
               <Tooltip
-                title="Low temperatures result in more predictable text. Higher temperatures result in more surprising text"
+                title={
+                  <span style={{ fontSize: "12px" }}>
+                    Low temperatures result in more predictable text. Higher
+                    temperatures result in more surprising text.
+                  </span>
+                }
                 placement="top"
               >
                 <Button>
