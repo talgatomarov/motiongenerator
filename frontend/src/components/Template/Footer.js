@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
   },
   attribution: {
-    fontSize: "8px",
+    fontSize: "10px",
     color: "#aaaaaa",
     textDecoration: "none",
   },
