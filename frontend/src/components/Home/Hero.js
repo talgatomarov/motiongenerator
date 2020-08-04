@@ -18,11 +18,11 @@ const Hero = () => {
     <Grid container>
       <Grid item lg={8} md={8} xs={12}>
         <Typography variant="h3" className={classes.title}>
-          Generate debating motion
+          Generate debating motions
         </Typography>
 
-        <Typography variant="subtitle1">
-          using state-of-the-art natural languange model.
+        <Typography variant="h5">
+          using the state-of-the-art natural languange model.
         </Typography>
       </Grid>
 
