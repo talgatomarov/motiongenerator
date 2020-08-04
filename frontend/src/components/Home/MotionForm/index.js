@@ -12,6 +12,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Paper from "@material-ui/core/Paper";
+import CloseIcon from "@material-ui/icons/Close";
 
 import ModalMessage from "./ModalMessage.js";
 
@@ -31,9 +32,10 @@ const useStyles = makeStyles((theme) => ({
   modalPaper: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(2, 6),
     outline: "none",
   },
+  closeButton: {},
 }));
 
 const useMotions = () => {
@@ -146,8 +148,25 @@ const MotionForm = () => {
       >
         <Fade in={open}>
           <Paper className={classes.modalPaper}>
-            <p>Generated Motions</p>
-            <ModalMessage data={data} />
+            <Grid container spacing={2} direction="row">
+              <Grid item xs={11}>
+                <p>Generated Motions</p>
+              </Grid>
+
+              <Grid item xs={1}>
+                <Button
+                  className={classes.closeButton}
+                  onClick={() => setOpen(false)}
+                  data-testid="close-button"
+                >
+                  <CloseIcon />
+                </Button>
+              </Grid>
+
+              <Grid item xs={12}>
+                <ModalMessage data={data} />
+              </Grid>
+            </Grid>
           </Paper>
         </Fade>
       </Modal>

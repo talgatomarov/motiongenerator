@@ -94,4 +94,36 @@ describe("MotionForm", () => {
     expect(screen.queryByTestId("loading-message")).toBeNull();
     expect(screen.getByTestId("error-message")).toBeInTheDocument();
   });
+
+  test("Test close button", async () => {
+    axios.post.mockImplementationOnce(() => Promise.resolve(mockMotions));
+
+    render(<MotionForm />);
+
+    const generateButton = screen.getByTestId("generate-button");
+    const generateTextField = screen.getByTestId("generate-text-field");
+
+    fireEvent.change(generateTextField, { target: { value: "This house" } });
+    expect(generateTextField).toHaveValue("This house");
+
+    fireEvent.click(generateButton);
+    expect(axios.post).toHaveBeenCalledWith("/api/generate", {
+      prefix: "This house",
+      temperature: 0.7,
+    });
+
+    expect(screen.getByTestId("motion-modal")).toBeInTheDocument();
+    expect(screen.getByTestId("close-button")).toBeInTheDocument();
+
+    await waitForElementToBeRemoved(() =>
+      screen.getByTestId("loading-message")
+    );
+
+    fireEvent.click(screen.getByTestId("close-button"));
+
+    await waitForElementToBeRemoved(() => screen.getByTestId("motion-modal"));
+
+    expect(screen.queryByTestId("motion-modal")).toBeNull();
+    expect(screen.queryByTestId("close-button")).toBeNull();
+  });
 });
