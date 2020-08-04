@@ -108,6 +108,7 @@ const MotionForm = () => {
                   </span>
                 }
                 placement="top"
+                enterTouchDelay={0}
               >
                 <Button>
                   <HelpIcon style={{ fontSize: 16 }} color="primary" />
