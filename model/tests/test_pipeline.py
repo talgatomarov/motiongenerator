@@ -30,10 +30,6 @@ result_files = ['config.json', 'pytorch_model.bin', 'training_args.bin',
 
 
 def test_env_vars():
-    assert 'WANDB_API_KEY' in os.environ
-    assert 'WANDB_PROJECT' in os.environ
-    assert 'WANDB_WATCH' in os.environ
-    assert os.environ['WANDB_WATCH'] == 'all'
     assert 'GOOGLE_APPLICATION_CREDENTIALS_JSON' in os.environ
 
 
