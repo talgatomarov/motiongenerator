@@ -1,9 +1,10 @@
 import os
 import time
-import luigi
 import json
 import shutil
 import wandb
+import luigi
+from luigi.util import requires
 from google.oauth2 import service_account
 from luigi.contrib.gcs import GCSClient
 from sklearn.model_selection import train_test_split
@@ -36,12 +37,10 @@ class DownloadDataset(luigi.Task):
         return luigi.LocalTarget(os.path.join(data_folder, 'motions.txt'))
 
 
+@requires(DownloadDataset)
 class PreprocessDataset(luigi.Task):
     bos_token = luigi.Parameter(default='<|endoftext|>')
     eos_token = luigi.Parameter(default='<|endoftext|>')
-
-    def requires(self):
-        return DownloadDataset()
 
     def run(self):
         with self.input().open('r') as f:
@@ -57,12 +56,10 @@ class PreprocessDataset(luigi.Task):
         return luigi.LocalTarget(os.path.join(data_folder, 'motions_prep.txt'))
 
 
+@requires(PreprocessDataset)
 class SplitDataset(luigi.Task):
     test_size = luigi.FloatParameter(default=0.1)
     random_state = luigi.FloatParameter(default=12)
-
-    def requires(self):
-        return PreprocessDataset()
 
     def run(self):
         with self.input().open('r') as f:
@@ -84,6 +81,7 @@ class SplitDataset(luigi.Task):
                 'test': luigi.LocalTarget(os.path.join(data_folder, 'test.txt'))}
 
 
+@requires(SplitDataset)
 class Train(luigi.Task):
     block_size = luigi.IntParameter(default=128)
     do_train = luigi.BoolParameter(default=True)
@@ -101,10 +99,6 @@ class Train(luigi.Task):
     warmup_steps = luigi.IntParameter(default=100)
     weight_decay = luigi.FloatParameter(default=0)
     save_steps = luigi.IntParameter(default=0)
-
-
-    def requires(self):
-        return SplitDataset()
 
     def run(self):
         result_folder = luigi.configuration.get_config().get('GlobalConfig', 'result_folder')
@@ -170,12 +164,9 @@ class Train(luigi.Task):
                 'run_name': luigi.LocalTarget(os.path.join(result_folder, 'run_name.txt'))}
 
 
-
+@requires(Train)
 class UploadToGCS(luigi.Task):
     bucket = luigi.Parameter()
-
-    def requires(self):
-        return Train()
 
     def run(self):
         result_folder = self.input()['results'].path

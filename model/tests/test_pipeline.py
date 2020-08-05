@@ -5,7 +5,7 @@ import luigi
 import pytest
 from unittest.mock import MagicMock
 
-from model.main import Train, DownloadDataset, SplitDataset, PreprocessDataset
+from model.main import Train
 from luigi.execution_summary import LuigiStatusCode
 
 import wandb
@@ -52,10 +52,10 @@ def cleanup():
 def test_run():
     luigi.configuration.get_config().set('GlobalConfig', 'data_folder', test_data_folder)
     luigi.configuration.get_config().set('GlobalConfig', 'result_folder', test_result_folder)
-    result = luigi.build([DownloadDataset(bucket=test_bucket, filename=test_filename),
-                          PreprocessDataset(eos_token=eos_token, bos_token=bos_token),
-                          SplitDataset(test_size=test_size),
-                          Train(num_train_epochs=1, block_size=64)],
+    result = luigi.build([Train(bucket=test_bucket, filename=test_filename,
+                                eos_token=eos_token, bos_token=bos_token,
+                                test_size=test_size, num_train_epochs=1,
+                                block_size=64)],
                          local_scheduler=True,
                          detailed_summary=True)
 
