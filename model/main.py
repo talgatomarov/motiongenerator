@@ -4,7 +4,7 @@ import json
 import shutil
 import wandb
 import luigi
-from luigi.util import inherits, requires
+from luigi.util import requires
 from google.oauth2 import service_account
 from luigi.contrib.gcs import GCSClient
 from sklearn.model_selection import train_test_split
@@ -36,6 +36,7 @@ class DownloadDataset(luigi.Task):
         data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
         return luigi.LocalTarget(os.path.join(data_folder, 'motions.txt'))
 
+
 @requires(DownloadDataset)
 class PreprocessDataset(luigi.Task):
     bos_token = luigi.Parameter(default='<|endoftext|>')
@@ -53,6 +54,7 @@ class PreprocessDataset(luigi.Task):
     def output(self):
         data_folder = luigi.configuration.get_config().get('GlobalConfig', 'data_folder')
         return luigi.LocalTarget(os.path.join(data_folder, 'motions_prep.txt'))
+
 
 @requires(PreprocessDataset)
 class SplitDataset(luigi.Task):
@@ -78,6 +80,7 @@ class SplitDataset(luigi.Task):
         return {'train': luigi.LocalTarget(os.path.join(data_folder, 'train.txt')),
                 'test': luigi.LocalTarget(os.path.join(data_folder, 'test.txt'))}
 
+
 @requires(SplitDataset)
 class Train(luigi.Task):
     block_size = luigi.IntParameter(default=128)
@@ -96,7 +99,6 @@ class Train(luigi.Task):
     warmup_steps = luigi.IntParameter(default=100)
     weight_decay = luigi.FloatParameter(default=0)
     save_steps = luigi.IntParameter(default=0)
-
 
     def run(self):
         result_folder = luigi.configuration.get_config().get('GlobalConfig', 'result_folder')
