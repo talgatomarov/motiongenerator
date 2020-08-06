@@ -35,3 +35,10 @@ jobs:
       working-directory: frontend
       run: |
         npm run test
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./frontend/coverage/clover.xml
+        flags: frontend
