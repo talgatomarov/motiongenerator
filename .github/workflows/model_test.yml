@@ -53,3 +53,4 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./model/coverage.xml
+        flags: model

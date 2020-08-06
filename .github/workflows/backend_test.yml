@@ -57,3 +57,4 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         file: ./backend/coverage.xml
+        flags: backend
