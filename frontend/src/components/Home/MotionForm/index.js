@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
   },
+  textField: {
+    backgroundColor: "white",
+  },
   button: {
     paddingTop: theme.spacing(6),
   },
@@ -87,6 +90,7 @@ const MotionForm = () => {
           <Grid item xs={12} md={8}>
             <TextField
               id="standard-basic"
+              className={classes.textField}
               label="Motion"
               placeholder="This house believes that"
               fullWidth
