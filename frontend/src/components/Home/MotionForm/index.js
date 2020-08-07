@@ -158,7 +158,7 @@ const MotionForm = () => {
       >
         <Fade in={open}>
           <Paper className={classes.modalPaper}>
-            <Grid container spacing={2} direction="row">
+            <Grid container>
               <Grid item xs={11}>
                 <p>Generated Motions</p>
               </Grid>
