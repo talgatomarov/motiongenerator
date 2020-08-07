@@ -126,7 +126,7 @@ const MotionForm = () => {
               step={0.1}
               marks
               min={0.1}
-              max={0.9}
+              max={1.5}
               onChange={(e) => setTemperature(e.target.value)}
             />
           </Grid>
