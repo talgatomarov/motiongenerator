@@ -4,3 +4,5 @@
 <img src="./assets/motiongenerator.png"  width="64" height="64" /> 
 
 **motiongenerator** is a web application that generates debating motions using a natural language model. 
+
+You can visit the application at http://motiongenerator.web.app/
