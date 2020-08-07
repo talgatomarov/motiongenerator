@@ -25,7 +25,7 @@ const Helper = (props) => {
         {props.title}
       </Typography>
 
-      <Typography variant="body2" className={classes.text}>
+      <Typography variant="body1" className={classes.text}>
         {props.children}
       </Typography>
     </Paper>
