@@ -10,3 +10,8 @@ You can visit the application at https://motiongenerator.web.app/
 Used natural language model
 ------------
 <a href="https://transformer.huggingface.co/model/distil-gpt2">DistilGPT-2</a> - distilled version of GPT2 model made by <a href="https://huggingface.co/">huggingface</a>. It weighs 37% less, and is twice as fast as its OpenAI counterpart, while keeping the same generative power
+
+Application architecture
+------------
+This repo consists of three separate parts: **frontend**, **backend**, and **model** 
+(TODO: app architecture figure)
