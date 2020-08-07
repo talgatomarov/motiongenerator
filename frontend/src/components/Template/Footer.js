@@ -32,6 +32,10 @@ const Footer = (props) => {
       <Typography variant="body2" className={classes.contact} align="center">
         Talgat Omarov.{" "}
         <a href="mailto:talgat.omarov@nu.edu.kz">talgat.omarov@nu.edu.kz</a>
+        <br />
+        <a href="https://github.com/talgatomarov/motiongenerator">
+          https://github.com/talgatomarov/motiongenerator
+        </a>
       </Typography>
 
       <Typography
