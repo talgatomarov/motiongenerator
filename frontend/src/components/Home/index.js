@@ -43,8 +43,8 @@ const Home = (props) => {
           <Helper title="What is a natural language model?">
             A statistical language model is a probability distribution over
             sequences of words. It can be used to predict the next most probable
-            word(s). The model used in this web-application is based upon
-            distillGPT2 model{" "}
+            word(s), and thus, to generate some text. The model used in this
+            web-application is based upon distillGPT2 model{" "}
             <a href="https://transformer.huggingface.co/model/distil-gpt2">
               [2]
             </a>
