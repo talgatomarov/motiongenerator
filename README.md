@@ -14,4 +14,6 @@ Used natural language model
 Application architecture
 ------------
 This repo consists of three separate parts: **frontend**, **backend**, and **model** 
-(TODO: app architecture figure)
+
+#### Model training
+<img src="./assets/model_training.png"/> 
