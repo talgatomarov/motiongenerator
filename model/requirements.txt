@@ -68,7 +68,7 @@ tornado==5.1.1
 tqdm==4.48.0
 transformers==3.0.2
 uritemplate==3.0.1
-urllib3==1.25.9
+urllib3==1.26.5
 wandb==0.9.3
 watchdog==0.10.3
 wcwidth==0.2.5
